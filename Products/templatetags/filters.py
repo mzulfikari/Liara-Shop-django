@@ -13,6 +13,6 @@ def rial_price(value):
     try:
         value = int(value)
         formatted = f"{value:,}"
-        return f"{formatted} ریال"
+        return f"{formatted} تومان"
     except (ValueError, TypeError):
         return value

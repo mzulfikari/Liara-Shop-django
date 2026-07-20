@@ -6,7 +6,7 @@ from account.forms import UserChangeForm, UserCreationForm
 from jalali_date.admin import ModelAdminJalaliMixin
 from jalali_date import datetime2jalali, date2jalali
 
-admin.site.site_header = 'پنل مدیریت فروشگاه'
+admin.site.site_header = 'Knack-Dev'
 
 class UserAdmin(ModelAdminJalaliMixin,BaseUserAdmin):
 

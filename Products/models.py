@@ -145,6 +145,7 @@ class Products(models.Model):
     slug = models.SlugField(
         verbose_name='نامک',help_text='مقدار به صورت خودکار از عنوان محصول استلفاده می شود',blank=True,unique=True
         )
+    Discounts = models.BooleanField(verbose_name=" نمایش در پرتخفیف ترین ها",default=False,)
     
     
     def save(self,force_insert=False,force_update=False,using=None,

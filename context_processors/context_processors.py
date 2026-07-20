@@ -27,7 +27,42 @@ def site_settings(request):
         settings = None
     return {'site_settings': settings}
 
+
 def Banners(request):
-    """Return only published banner objects ordered by creation date"""
-    banner = Banner.objects.filter(status='published').order_by('-created_at')
-    return {'Banners': banner}
+    return {
+        'header_banners': Banner.objects.filter(
+            status='published',
+            pformance_Venue='Header'
+        ),
+
+        'discount_banner': Banner.objects.filter(
+            status='published',
+            pformance_Venue='Banner for Heavily Discounted Products'
+        ).first(),
+
+
+        'banner_1': Banner.objects.filter(
+            status='published',
+            pformance_Venue='Banner 1.1'
+        ).first(),
+        
+        'banner_2': Banner.objects.filter(
+            status='published',
+            pformance_Venue='Banner 1.2'
+        ).first(),
+        
+        'banner_3': Banner.objects.filter(
+            status='published',
+            pformance_Venue='Banner 1.3'
+        ).first(),
+        
+        'banner_4': Banner.objects.filter(
+            status='published',
+            pformance_Venue='Banner 1.4'
+        ).first(),
+
+        'banner_12': Banner.objects.filter(
+            status='published',
+            pformance_Venue='Banner 1.2'
+        ),
+    }

@@ -8,6 +8,17 @@ STATUS = (
     ("published", "منتشر شود"),
 )
 
+Performance_Venue = (
+    ("Header", "بنر هدر سایت"),
+    ("Banner for Heavily Discounted Products", "بنر محصولات پرتخفیف "),
+    ("Banner 1.1", "1.1 بنر"),
+    ("Banner 1.2", "1.2 بنر"),
+    ("Banner 1.3", "1.3 بنر"),
+    ("Banner 1.4", "1.4 بنر"),
+    ("Banner 2.1", "2.1 بنر"),
+    ("Banner 2.2", "2.2 بنر"),
+)
+
 class SiteSettings(models.Model):
     
     title = models.CharField(
@@ -64,6 +75,9 @@ class Banner(models.Model):
         )
     status = models.CharField(
         choices=STATUS, max_length=10, default='published', verbose_name='وضعیت'
+        )
+    pformance_Venue =  models.CharField(
+        choices=Performance_Venue, max_length=50, default='Header', verbose_name='جایگاه نمایش'
         )
     created_at = models.DateTimeField(
         auto_now_add=True, verbose_name='تاریخ ایجاد'

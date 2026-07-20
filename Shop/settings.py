@@ -206,3 +206,30 @@ JALALI_DATE_DEFAULTS = {
         }
     },
 }
+
+# SECURE_SSL_REDIRECT = False
+# SESSION_COOKIE_SECURE = False
+# CSRF_COOKIE_SECURE = False
+# SECURE_HSTS_SECONDS = 0
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+# SECURE_HSTS_PRELOAD = False
+
+# SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+# SESSION_COOKIE_DOMAIN = '.abajstore.ir'
+
+
+# CSRF_COOKIE_DOMAIN = '.abajstore.ir'
+# CSRF_TRUSTED_ORIGINS = ['https://abajstore.ir', 'https://www.abajstore.ir',
+#                         'http://abajstore.ir', 'http://www.abajstore.ir',
+#                         'https://pec.shaparak.ir', 'https://www.pec.shaparak.ir']
+
+# CORS_ALLOWED_ORIGINS = [
+#     "https://abajstore.ir",
+#     "http://abajstore.ir",
+#     "https://www.abajstore.ir",
+#     "http://www.abajstore.ir",
+#     "http://localhost:8000",
+#     "https://pec.shaparak.ir",
+#     "https://www.pec.shaparak.ir"
+# ]
+# CORS_ALLOW_CREDENTIALS = True
