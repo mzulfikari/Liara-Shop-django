@@ -6,23 +6,42 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Products', '0008_remove_products_value_color_color_code_color_created_and_more'),
+        (
+            "Products",
+            "0008_remove_products_value_color_color_code_color_created_and_more",
+        ),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='color',
-            name='color_code',
-            field=models.CharField(default='#229605', help_text='این یک کد رنگی پیش فرض است', max_length=20, unique=True, verbose_name='کد رنگ'),
+            model_name="color",
+            name="color_code",
+            field=models.CharField(
+                default="#229605",
+                help_text="این یک کد رنگی پیش فرض است",
+                max_length=20,
+                unique=True,
+                verbose_name="کد رنگ",
+            ),
         ),
         migrations.AlterField(
-            model_name='products',
-            name='color',
-            field=models.ManyToManyField(blank=True, related_name='products', to='Products.color', verbose_name='رنگ بندی ها'),
+            model_name="products",
+            name="color",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="products",
+                to="Products.color",
+                verbose_name="رنگ بندی ها",
+            ),
         ),
         migrations.AlterField(
-            model_name='products',
-            name='size',
-            field=models.ManyToManyField(blank=True, related_name='products', to='Products.size', verbose_name='سایزها'),
+            model_name="products",
+            name="size",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="products",
+                to="Products.size",
+                verbose_name="سایزها",
+            ),
         ),
     ]

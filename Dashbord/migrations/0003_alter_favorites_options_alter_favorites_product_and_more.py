@@ -8,24 +8,38 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Dashbord', '0002_alter_address_city_alter_address_province'),
-        ('Products', '0012_alter_color_color_code_alter_color_title_and_more'),
+        ("Dashbord", "0002_alter_address_city_alter_address_province"),
+        ("Products", "0012_alter_color_color_code_alter_color_title_and_more"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='favorites',
-            options={'ordering': ('-created_at',), 'verbose_name': 'لیست علاقه \u200cمندی', 'verbose_name_plural': 'لیست\u200c های علاقه \u200cمندی'},
+            name="favorites",
+            options={
+                "ordering": ("-created_at",),
+                "verbose_name": "لیست علاقه \u200cمندی",
+                "verbose_name_plural": "لیست\u200c های علاقه \u200cمندی",
+            },
         ),
         migrations.AlterField(
-            model_name='favorites',
-            name='product',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='Like', to='Products.products', verbose_name='محصول مربوطه'),
+            model_name="favorites",
+            name="product",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="Like",
+                to="Products.products",
+                verbose_name="محصول مربوطه",
+            ),
         ),
         migrations.AlterField(
-            model_name='favorites',
-            name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='Like', to=settings.AUTH_USER_MODEL, verbose_name='کاربر'),
+            model_name="favorites",
+            name="user",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="Like",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="کاربر",
+            ),
         ),
     ]

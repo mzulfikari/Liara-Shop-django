@@ -6,13 +6,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Products', '0004_category_image_alter_category_views'),
+        ("Products", "0004_category_image_alter_category_views"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='products',
-            name='color',
-            field=models.ManyToManyField(blank=True, null=True, related_name='product', to='Products.color', verbose_name='رنگ بندی ها'),
+            model_name="products",
+            name="color",
+            field=models.ManyToManyField(
+                blank=True,
+                null=True,
+                related_name="product",
+                to="Products.color",
+                verbose_name="رنگ بندی ها",
+            ),
         ),
     ]

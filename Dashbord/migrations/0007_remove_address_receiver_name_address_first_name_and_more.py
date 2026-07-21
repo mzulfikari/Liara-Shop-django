@@ -6,22 +6,29 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Dashbord', '0006_delete_comment'),
+        ("Dashbord", "0006_delete_comment"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='address',
-            name='receiver_name',
+            model_name="address",
+            name="receiver_name",
         ),
         migrations.AddField(
-            model_name='address',
-            name='first_name',
-            field=models.CharField(blank=True, max_length=100, null=True, verbose_name='نام تحویل گیرنده'),
+            model_name="address",
+            name="first_name",
+            field=models.CharField(
+                blank=True, max_length=100, null=True, verbose_name="نام تحویل گیرنده"
+            ),
         ),
         migrations.AddField(
-            model_name='address',
-            name='last_name',
-            field=models.CharField(blank=True, max_length=100, null=True, verbose_name='نام خانوداگی تحویل گیرنده'),
+            model_name="address",
+            name="last_name",
+            field=models.CharField(
+                blank=True,
+                max_length=100,
+                null=True,
+                verbose_name="نام خانوداگی تحویل گیرنده",
+            ),
         ),
     ]

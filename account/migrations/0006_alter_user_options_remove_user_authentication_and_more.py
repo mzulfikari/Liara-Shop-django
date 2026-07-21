@@ -8,48 +8,87 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('account', '0005_alter_user_image'),
+        ("account", "0005_alter_user_image"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='user',
-            options={'verbose_name': 'پروفایل', 'verbose_name_plural': 'پروفایل ها'},
+            name="user",
+            options={"verbose_name": "پروفایل", "verbose_name_plural": "پروفایل ها"},
         ),
         migrations.RemoveField(
-            model_name='user',
-            name='Authentication',
+            model_name="user",
+            name="Authentication",
         ),
         migrations.AlterField(
-            model_name='user',
-            name='last_login',
-            field=models.DateTimeField(blank=True, null=True, verbose_name='last login'),
+            model_name="user",
+            name="last_login",
+            field=models.DateTimeField(
+                blank=True, null=True, verbose_name="last login"
+            ),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='phone',
-            field=models.CharField(max_length=255, verbose_name='شماره تلفن'),
+            model_name="user",
+            name="phone",
+            field=models.CharField(max_length=255, verbose_name="شماره تلفن"),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='verification_time',
-            field=models.DateField(blank=True, null=True, verbose_name='تاریخ عضویت '),
+            model_name="user",
+            name="verification_time",
+            field=models.DateField(blank=True, null=True, verbose_name="تاریخ عضویت "),
         ),
         migrations.CreateModel(
-            name='Notification',
+            name="Notification",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('message', models.TextField(verbose_name='پیام')),
-                ('is_for_all_users', models.BooleanField(default=False, help_text='با فعال\u200cسازی، اعلان به همه کاربران ارسال می\u200cشود', verbose_name='برای همه کاربران')),
-                ('is_active', models.BooleanField(default=True, verbose_name='فعال')),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now, verbose_name='تاریخ ایجاد')),
-                ('expiration_date', models.DateTimeField(blank=True, help_text='تاریخی که پس از آن اعلان به صورت خودکار حذف خواهد شد', null=True, verbose_name='تاریخ انقضا')),
-                ('users', models.ManyToManyField(blank=True, help_text='لیست کاربرانی که این اعلان را دریافت می\u200cکنند', related_name='notifications', to=settings.AUTH_USER_MODEL, verbose_name='کاربران هدف')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("message", models.TextField(verbose_name="پیام")),
+                (
+                    "is_for_all_users",
+                    models.BooleanField(
+                        default=False,
+                        help_text="با فعال\u200cسازی، اعلان به همه کاربران ارسال می\u200cشود",
+                        verbose_name="برای همه کاربران",
+                    ),
+                ),
+                ("is_active", models.BooleanField(default=True, verbose_name="فعال")),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="تاریخ ایجاد"
+                    ),
+                ),
+                (
+                    "expiration_date",
+                    models.DateTimeField(
+                        blank=True,
+                        help_text="تاریخی که پس از آن اعلان به صورت خودکار حذف خواهد شد",
+                        null=True,
+                        verbose_name="تاریخ انقضا",
+                    ),
+                ),
+                (
+                    "users",
+                    models.ManyToManyField(
+                        blank=True,
+                        help_text="لیست کاربرانی که این اعلان را دریافت می\u200cکنند",
+                        related_name="notifications",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="کاربران هدف",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'اعلان',
-                'verbose_name_plural': 'اعلان\u200c ها',
-                'ordering': ['-created_at'],
+                "verbose_name": "اعلان",
+                "verbose_name_plural": "اعلان\u200c ها",
+                "ordering": ["-created_at"],
             },
         ),
     ]

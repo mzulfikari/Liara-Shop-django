@@ -8,19 +8,28 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('account', '0007_user_card_number_alter_user_phone_and_more'),
+        ("account", "0007_user_card_number_alter_user_phone_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='national_code',
-            field=models.IntegerField(blank=True, null=True, validators=[utils.validator.persian_national_code], verbose_name='کد ملی'),
+            model_name="user",
+            name="national_code",
+            field=models.IntegerField(
+                blank=True,
+                null=True,
+                validators=[utils.validator.persian_national_code],
+                verbose_name="کد ملی",
+            ),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='verification_time',
-            field=models.DateField(auto_now_add=True, default=django.utils.timezone.now, verbose_name='تاریخ عضویت '),
+            model_name="user",
+            name="verification_time",
+            field=models.DateField(
+                auto_now_add=True,
+                default=django.utils.timezone.now,
+                verbose_name="تاریخ عضویت ",
+            ),
             preserve_default=False,
         ),
     ]

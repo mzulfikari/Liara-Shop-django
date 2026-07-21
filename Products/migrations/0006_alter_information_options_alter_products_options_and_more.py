@@ -6,26 +6,33 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Products', '0005_alter_products_color'),
+        ("Products", "0005_alter_products_color"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='information',
-            options={'verbose_name_plural': 'ویژگی ها'},
+            name="information",
+            options={"verbose_name_plural": "ویژگی ها"},
         ),
         migrations.AlterModelOptions(
-            name='products',
-            options={'ordering': ['-created'], 'verbose_name_plural': 'محصولات'},
+            name="products",
+            options={"ordering": ["-created"], "verbose_name_plural": "محصولات"},
         ),
         migrations.AddField(
-            model_name='products',
-            name='created',
-            field=models.DateTimeField(auto_now_add=True, null=True, verbose_name='تاریخ ایجاد'),
+            model_name="products",
+            name="created",
+            field=models.DateTimeField(
+                auto_now_add=True, null=True, verbose_name="تاریخ ایجاد"
+            ),
         ),
         migrations.AlterField(
-            model_name='products',
-            name='color',
-            field=models.ManyToManyField(blank=True, related_name='product', to='Products.color', verbose_name='رنگ بندی ها'),
+            model_name="products",
+            name="color",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="product",
+                to="Products.color",
+                verbose_name="رنگ بندی ها",
+            ),
         ),
     ]

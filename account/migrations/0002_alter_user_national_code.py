@@ -7,13 +7,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('account', '0001_initial'),
+        ("account", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='national_code',
-            field=models.IntegerField(blank=True, null=True, validators=[utils.validator.persian_national_code]),
+            model_name="user",
+            name="national_code",
+            field=models.IntegerField(
+                blank=True,
+                null=True,
+                validators=[utils.validator.persian_national_code],
+            ),
         ),
     ]

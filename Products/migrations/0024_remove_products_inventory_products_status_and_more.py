@@ -6,27 +6,45 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Products', '0023_alter_category_slug'),
+        ("Products", "0023_alter_category_slug"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='products',
-            name='inventory',
+            model_name="products",
+            name="inventory",
         ),
         migrations.AddField(
-            model_name='products',
-            name='status',
-            field=models.IntegerField(choices=[(1, 'نمایش'), (2, 'عدم نمایش')], default=2, verbose_name='وضعیت نمایش'),
+            model_name="products",
+            name="status",
+            field=models.IntegerField(
+                choices=[(1, "نمایش"), (2, "عدم نمایش")],
+                default=2,
+                verbose_name="وضعیت نمایش",
+            ),
         ),
         migrations.AlterField(
-            model_name='comment',
-            name='status',
-            field=models.CharField(choices=[('Awaiting confirmation', 'در انتظار تایید'), ('It was confirmed', 'تایید شد'), ('rejected', 'رد شد')], default='Awaiting confirmation', max_length=30, verbose_name='وضعیت'),
+            model_name="comment",
+            name="status",
+            field=models.CharField(
+                choices=[
+                    ("Awaiting confirmation", "در انتظار تایید"),
+                    ("It was confirmed", "تایید شد"),
+                    ("rejected", "رد شد"),
+                ],
+                default="Awaiting confirmation",
+                max_length=30,
+                verbose_name="وضعیت",
+            ),
         ),
         migrations.AlterField(
-            model_name='products',
-            name='color',
-            field=models.ManyToManyField(blank=True, related_name='products', to='Products.color', verbose_name='رنگ بندی ها'),
+            model_name="products",
+            name="color",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="products",
+                to="Products.color",
+                verbose_name="رنگ بندی ها",
+            ),
         ),
     ]

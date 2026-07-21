@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Products', '0024_remove_products_inventory_products_status_and_more'),
+        ("Products", "0024_remove_products_inventory_products_status_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='products',
-            name='Discounts',
-            field=models.BooleanField(default=False, verbose_name=' نمایش در پرتخفیف ترین ها'),
+            model_name="products",
+            name="Discounts",
+            field=models.BooleanField(
+                default=False, verbose_name=" نمایش در پرتخفیف ترین ها"
+            ),
         ),
     ]

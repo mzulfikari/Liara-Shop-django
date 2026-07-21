@@ -15,92 +15,248 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Brand',
+            name="Brand",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(blank=True, max_length=60, null=True, verbose_name='برند')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title",
+                    models.CharField(
+                        blank=True, max_length=60, null=True, verbose_name="برند"
+                    ),
+                ),
             ],
             options={
-                'verbose_name_plural': 'برند ها ',
+                "verbose_name_plural": "برند ها ",
             },
         ),
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=50, verbose_name='عنوان')),
-                ('created', models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=50, verbose_name="عنوان")),
+                (
+                    "created",
+                    models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ایجاد"),
+                ),
             ],
             options={
-                'verbose_name_plural': 'دسته بندی ها',
+                "verbose_name_plural": "دسته بندی ها",
             },
         ),
         migrations.CreateModel(
-            name='Color',
+            name="Color",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(blank=True, max_length=30, null=True, verbose_name='عنوان رنگ')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title",
+                    models.CharField(
+                        blank=True, max_length=30, null=True, verbose_name="عنوان رنگ"
+                    ),
+                ),
             ],
             options={
-                'verbose_name_plural': 'رنگ بندی ',
+                "verbose_name_plural": "رنگ بندی ",
             },
         ),
         migrations.CreateModel(
-            name='Size',
+            name="Size",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=30)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=30)),
             ],
             options={
-                'verbose_name_plural': 'سایز',
+                "verbose_name_plural": "سایز",
             },
         ),
         migrations.CreateModel(
-            name='Products',
+            name="Products",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=80, verbose_name='عنوان')),
-                ('hover_title', models.CharField(blank=True, max_length=60, null=True, verbose_name='عنوان معرفی')),
-                ('image', models.ImageField(blank=True, null=True, upload_to='product/image', verbose_name='بارگذاری تصویر')),
-                ('price', models.SmallIntegerField(verbose_name='قیمت')),
-                ('caption', models.TextField(verbose_name='درباره محصول')),
-                ('value', models.SmallIntegerField(verbose_name='مقدار')),
-                ('slug', models.SlugField(blank=True, null=True, verbose_name='به صورت خودکار از عنوان محصول استفاده میشود')),
-                ('inventory', models.BooleanField(default=True, verbose_name='موجودیت')),
-                ('category', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='Products.category', verbose_name='دسته بندی')),
-                ('color', models.ManyToManyField(related_name='product', to='Products.color', verbose_name='رنگ بندی ها')),
-                ('size', models.ManyToManyField(blank=True, related_name='product', to='Products.size')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=80, verbose_name="عنوان")),
+                (
+                    "hover_title",
+                    models.CharField(
+                        blank=True, max_length=60, null=True, verbose_name="عنوان معرفی"
+                    ),
+                ),
+                (
+                    "image",
+                    models.ImageField(
+                        blank=True,
+                        null=True,
+                        upload_to="product/image",
+                        verbose_name="بارگذاری تصویر",
+                    ),
+                ),
+                ("price", models.SmallIntegerField(verbose_name="قیمت")),
+                ("caption", models.TextField(verbose_name="درباره محصول")),
+                ("value", models.SmallIntegerField(verbose_name="مقدار")),
+                (
+                    "slug",
+                    models.SlugField(
+                        blank=True,
+                        null=True,
+                        verbose_name="به صورت خودکار از عنوان محصول استفاده میشود",
+                    ),
+                ),
+                (
+                    "inventory",
+                    models.BooleanField(default=True, verbose_name="موجودیت"),
+                ),
+                (
+                    "category",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="Products.category",
+                        verbose_name="دسته بندی",
+                    ),
+                ),
+                (
+                    "color",
+                    models.ManyToManyField(
+                        related_name="product",
+                        to="Products.color",
+                        verbose_name="رنگ بندی ها",
+                    ),
+                ),
+                (
+                    "size",
+                    models.ManyToManyField(
+                        blank=True, related_name="product", to="Products.size"
+                    ),
+                ),
             ],
             options={
-                'verbose_name_plural': 'محصولات',
+                "verbose_name_plural": "محصولات",
             },
         ),
         migrations.CreateModel(
-            name='Like',
+            name="Like",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='likes', to=settings.AUTH_USER_MODEL)),
-                ('products', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='likes', to='Products.products')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="likes",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "products",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="likes",
+                        to="Products.products",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'پسند',
-                'verbose_name_plural': 'پسند ها',
-                'ordering': ('-created_at',),
+                "verbose_name": "پسند",
+                "verbose_name_plural": "پسند ها",
+                "ordering": ("-created_at",),
             },
         ),
         migrations.CreateModel(
-            name='Comment',
+            name="Comment",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('body', models.TextField(verbose_name='نظر')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد')),
-                ('parent', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='replies', to='Products.comment', verbose_name='پاسخ ها ')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to=settings.AUTH_USER_MODEL, verbose_name='کاربر')),
-                ('products', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='Products.products', verbose_name='محصول')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("body", models.TextField(verbose_name="نظر")),
+                (
+                    "created_at",
+                    models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ایجاد"),
+                ),
+                (
+                    "parent",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="replies",
+                        to="Products.comment",
+                        verbose_name="پاسخ ها ",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="comments",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="کاربر",
+                    ),
+                ),
+                (
+                    "products",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="comments",
+                        to="Products.products",
+                        verbose_name="محصول",
+                    ),
+                ),
             ],
             options={
-                'verbose_name_plural': 'کامنت ها',
+                "verbose_name_plural": "کامنت ها",
             },
         ),
     ]

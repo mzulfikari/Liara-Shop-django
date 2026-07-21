@@ -6,13 +6,27 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0006_alter_about_me_options'),
+        ("core", "0006_alter_about_me_options"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='banner',
-            name='pformance_Venue',
-            field=models.CharField(choices=[('Header', 'بنر هدر سایت'), ('Banner for Heavily Discounted Products', 'بنر محصولات پرتخفیف '), ('Banner 1.1', '1.1 بنر'), ('Banner 1.2', '1.2 بنر'), ('Banner 1.3', '1.3 بنر'), ('Banner 1.4', '1.4 بنر'), ('Banner 2.1', '2.1 بنر'), ('Banner 2.2', '2.3 بنر')], default='Header', max_length=50, verbose_name='جایگاه نمایش'),
+            model_name="banner",
+            name="pformance_Venue",
+            field=models.CharField(
+                choices=[
+                    ("Header", "بنر هدر سایت"),
+                    ("Banner for Heavily Discounted Products", "بنر محصولات پرتخفیف "),
+                    ("Banner 1.1", "1.1 بنر"),
+                    ("Banner 1.2", "1.2 بنر"),
+                    ("Banner 1.3", "1.3 بنر"),
+                    ("Banner 1.4", "1.4 بنر"),
+                    ("Banner 2.1", "2.1 بنر"),
+                    ("Banner 2.2", "2.3 بنر"),
+                ],
+                default="Header",
+                max_length=50,
+                verbose_name="جایگاه نمایش",
+            ),
         ),
     ]

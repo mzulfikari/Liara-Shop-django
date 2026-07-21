@@ -8,44 +8,107 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='User',
+            name="User",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('phone', models.CharField(max_length=255, unique=True, verbose_name='شماره تلفن')),
-                ('first_name', models.CharField(max_length=50, verbose_name='نام')),
-                ('last_name', models.CharField(max_length=50, verbose_name='نام خانوادگی')),
-                ('verification_time', models.DateField(blank=True, null=True)),
-                ('is_active', models.BooleanField(default=True)),
-                ('is_admin', models.BooleanField(default=False)),
-                ('email', models.EmailField(max_length=254, verbose_name='ایمیل')),
-                ('image', models.ImageField(blank=True, null=True, upload_to='images/', verbose_name='پروفایل')),
-                ('Authentication', models.BooleanField(default=False, verbose_name='وضعیت احراز هویت')),
-                ('password', models.CharField(max_length=300)),
-                ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='آخرین ورود')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='تاریخ عضویت')),
-                ('national_code', models.IntegerField(validators=[utils.validator.persian_national_code])),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "phone",
+                    models.CharField(
+                        max_length=255, unique=True, verbose_name="شماره تلفن"
+                    ),
+                ),
+                ("first_name", models.CharField(max_length=50, verbose_name="نام")),
+                (
+                    "last_name",
+                    models.CharField(max_length=50, verbose_name="نام خانوادگی"),
+                ),
+                ("verification_time", models.DateField(blank=True, null=True)),
+                ("is_active", models.BooleanField(default=True)),
+                ("is_admin", models.BooleanField(default=False)),
+                ("email", models.EmailField(max_length=254, verbose_name="ایمیل")),
+                (
+                    "image",
+                    models.ImageField(
+                        blank=True,
+                        null=True,
+                        upload_to="images/",
+                        verbose_name="پروفایل",
+                    ),
+                ),
+                (
+                    "Authentication",
+                    models.BooleanField(default=False, verbose_name="وضعیت احراز هویت"),
+                ),
+                ("password", models.CharField(max_length=300)),
+                (
+                    "last_login",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="آخرین ورود"
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(auto_now_add=True, verbose_name="تاریخ عضویت"),
+                ),
+                (
+                    "national_code",
+                    models.IntegerField(
+                        validators=[utils.validator.persian_national_code]
+                    ),
+                ),
             ],
             options={
-                'verbose_name_plural': 'کاربران',
+                "verbose_name_plural": "کاربران",
             },
         ),
         migrations.CreateModel(
-            name='Otp',
+            name="Otp",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('token', models.CharField(max_length=200, null=True, verbose_name='توکن')),
-                ('phone', models.CharField(max_length=11, validators=[utils.validator.persian_phone_number_validation], verbose_name='شماره تلفن')),
-                ('code', models.SmallIntegerField(verbose_name='کد یکبار مصرف')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد')),
-                ('expiry_minutes', models.IntegerField(default=2, verbose_name='مدت زمان اعتبار')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "token",
+                    models.CharField(max_length=200, null=True, verbose_name="توکن"),
+                ),
+                (
+                    "phone",
+                    models.CharField(
+                        max_length=11,
+                        validators=[utils.validator.persian_phone_number_validation],
+                        verbose_name="شماره تلفن",
+                    ),
+                ),
+                ("code", models.SmallIntegerField(verbose_name="کد یکبار مصرف")),
+                (
+                    "created_at",
+                    models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ایجاد"),
+                ),
+                (
+                    "expiry_minutes",
+                    models.IntegerField(default=2, verbose_name="مدت زمان اعتبار"),
+                ),
             ],
             options={
-                'verbose_name_plural': 'یکبار مصرف ',
+                "verbose_name_plural": "یکبار مصرف ",
             },
         ),
     ]

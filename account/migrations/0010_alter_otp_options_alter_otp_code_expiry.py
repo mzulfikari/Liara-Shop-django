@@ -7,17 +7,25 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('account', '0009_alter_otp_options_remove_otp_created_at_and_more'),
+        ("account", "0009_alter_otp_options_remove_otp_created_at_and_more"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='otp',
-            options={'verbose_name': 'رمز یکبار مصرف', 'verbose_name_plural': ' احراز هویت Otp'},
+            name="otp",
+            options={
+                "verbose_name": "رمز یکبار مصرف",
+                "verbose_name_plural": " احراز هویت Otp",
+            },
         ),
         migrations.AlterField(
-            model_name='otp',
-            name='code_expiry',
-            field=models.DateTimeField(default=datetime.datetime(2025, 7, 26, 21, 12, 58, 499475, tzinfo=datetime.timezone.utc), verbose_name='تاریخ انقضای کد'),
+            model_name="otp",
+            name="code_expiry",
+            field=models.DateTimeField(
+                default=datetime.datetime(
+                    2025, 7, 26, 21, 12, 58, 499475, tzinfo=datetime.timezone.utc
+                ),
+                verbose_name="تاریخ انقضای کد",
+            ),
         ),
     ]

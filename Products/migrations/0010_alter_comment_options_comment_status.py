@@ -6,17 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Products', '0009_alter_color_color_code_alter_products_color_and_more'),
+        ("Products", "0009_alter_color_color_code_alter_products_color_and_more"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='comment',
-            options={'verbose_name_plural': 'نظرات'},
+            name="comment",
+            options={"verbose_name_plural": "نظرات"},
         ),
         migrations.AddField(
-            model_name='comment',
-            name='status',
-            field=models.CharField(choices=[('draft', 'پیش نویس شود'), ('published', 'منتشر شود')], default='published', max_length=10, verbose_name='وضعیت'),
+            model_name="comment",
+            name="status",
+            field=models.CharField(
+                choices=[("draft", "پیش نویس شود"), ("published", "منتشر شود")],
+                default="published",
+                max_length=10,
+                verbose_name="وضعیت",
+            ),
         ),
     ]

@@ -8,24 +8,73 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Products', '0018_alter_category_views_delete_comment'),
+        ("Products", "0018_alter_category_views_delete_comment"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Comment',
+            name="Comment",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('body', models.TextField(verbose_name='نظر')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد')),
-                ('status', models.CharField(choices=[('Awaiting confirmation', 'در انتظار تایید'), ('It was confirmed', 'تایید شد'), ('rejected', 'در انتظار تایید')], default='published', max_length=30, verbose_name='وضعیت')),
-                ('parent', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='replies', to='Products.comment', verbose_name='پاسخ ها ')),
-                ('products', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='Products.products', verbose_name='محصول')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to=settings.AUTH_USER_MODEL, verbose_name='کاربر')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("body", models.TextField(verbose_name="نظر")),
+                (
+                    "created_at",
+                    models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ایجاد"),
+                ),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("Awaiting confirmation", "در انتظار تایید"),
+                            ("It was confirmed", "تایید شد"),
+                            ("rejected", "در انتظار تایید"),
+                        ],
+                        default="published",
+                        max_length=30,
+                        verbose_name="وضعیت",
+                    ),
+                ),
+                (
+                    "parent",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="replies",
+                        to="Products.comment",
+                        verbose_name="پاسخ ها ",
+                    ),
+                ),
+                (
+                    "products",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="comments",
+                        to="Products.products",
+                        verbose_name="محصول",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="comments",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="کاربر",
+                    ),
+                ),
             ],
             options={
-                'verbose_name_plural': 'نظرات',
+                "verbose_name_plural": "نظرات",
             },
         ),
     ]

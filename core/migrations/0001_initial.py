@@ -8,57 +8,162 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Banner',
+            name="Banner",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=200, verbose_name='عنوان بنر')),
-                ('image', models.ImageField(upload_to='banners/', verbose_name='تصویر بنر')),
-                ('status', models.CharField(choices=[('draft', 'پیش نویس شود'), ('published', 'منتشر شود')], default='published', max_length=10, verbose_name='وضعیت')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد')),
-                ('updated_at', models.DateTimeField(auto_now=True, verbose_name='تاریخ به\u200cروزرسانی')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=200, verbose_name="عنوان بنر")),
+                (
+                    "image",
+                    models.ImageField(upload_to="banners/", verbose_name="تصویر بنر"),
+                ),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[("draft", "پیش نویس شود"), ("published", "منتشر شود")],
+                        default="published",
+                        max_length=10,
+                        verbose_name="وضعیت",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ایجاد"),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(
+                        auto_now=True, verbose_name="تاریخ به\u200cروزرسانی"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'بنر',
-                'verbose_name_plural': 'بنر ها',
+                "verbose_name": "بنر",
+                "verbose_name_plural": "بنر ها",
             },
         ),
         migrations.CreateModel(
-            name='ContactUs',
+            name="ContactUs",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('first_name', models.CharField(max_length=100, verbose_name='نام')),
-                ('last_name', models.CharField(max_length=100, verbose_name='نام خانوادگی')),
-                ('phone', models.CharField(max_length=14, verbose_name='شماره تماس')),
-                ('message', models.TextField(verbose_name='متن پیام')),
-                ('date_send', models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ارسال')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("first_name", models.CharField(max_length=100, verbose_name="نام")),
+                (
+                    "last_name",
+                    models.CharField(max_length=100, verbose_name="نام خانوادگی"),
+                ),
+                ("phone", models.CharField(max_length=14, verbose_name="شماره تماس")),
+                ("message", models.TextField(verbose_name="متن پیام")),
+                (
+                    "date_send",
+                    models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ارسال"),
+                ),
             ],
             options={
-                'verbose_name': 'تماس با ما',
-                'verbose_name_plural': 'تماس با ما',
-                'ordering': ['-date_send'],
+                "verbose_name": "تماس با ما",
+                "verbose_name_plural": "تماس با ما",
+                "ordering": ["-date_send"],
             },
         ),
         migrations.CreateModel(
-            name='SiteSettings',
+            name="SiteSettings",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('logo', models.ImageField(blank=True, null=True, upload_to='logo/image', verbose_name='لوگو')),
-                ('text_about_us', ckeditor_uploader.fields.RichTextUploadingField(blank=True, null=True, verbose_name='متن درباره ما')),
-                ('address', models.CharField(blank=True, max_length=250, null=True, verbose_name='آدرس')),
-                ('phone1', models.CharField(blank=True, max_length=14, null=True, verbose_name='شماره تلفن همراه')),
-                ('phone2', models.CharField(blank=True, max_length=14, null=True, verbose_name='شماره تلفن ثابت')),
-                ('email1', models.CharField(blank=True, max_length=250, null=True, verbose_name='ایمیل ')),
-                ('instagram_link', models.CharField(blank=True, default='https://instagram.com/username', max_length=250, null=True, verbose_name='لینک اینستاگرام')),
-                ('telegram_link', models.CharField(blank=True, default='https://t.me/username', max_length=250, null=True, verbose_name='لینک تلگرام')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "logo",
+                    models.ImageField(
+                        blank=True,
+                        null=True,
+                        upload_to="logo/image",
+                        verbose_name="لوگو",
+                    ),
+                ),
+                (
+                    "text_about_us",
+                    ckeditor_uploader.fields.RichTextUploadingField(
+                        blank=True, null=True, verbose_name="متن درباره ما"
+                    ),
+                ),
+                (
+                    "address",
+                    models.CharField(
+                        blank=True, max_length=250, null=True, verbose_name="آدرس"
+                    ),
+                ),
+                (
+                    "phone1",
+                    models.CharField(
+                        blank=True,
+                        max_length=14,
+                        null=True,
+                        verbose_name="شماره تلفن همراه",
+                    ),
+                ),
+                (
+                    "phone2",
+                    models.CharField(
+                        blank=True,
+                        max_length=14,
+                        null=True,
+                        verbose_name="شماره تلفن ثابت",
+                    ),
+                ),
+                (
+                    "email1",
+                    models.CharField(
+                        blank=True, max_length=250, null=True, verbose_name="ایمیل "
+                    ),
+                ),
+                (
+                    "instagram_link",
+                    models.CharField(
+                        blank=True,
+                        default="https://instagram.com/username",
+                        max_length=250,
+                        null=True,
+                        verbose_name="لینک اینستاگرام",
+                    ),
+                ),
+                (
+                    "telegram_link",
+                    models.CharField(
+                        blank=True,
+                        default="https://t.me/username",
+                        max_length=250,
+                        null=True,
+                        verbose_name="لینک تلگرام",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'تنظیمات سایت',
-                'verbose_name_plural': 'تنظیمات سایت',
+                "verbose_name": "تنظیمات سایت",
+                "verbose_name_plural": "تنظیمات سایت",
             },
         ),
     ]

@@ -6,18 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0002_sitesettings_title_alter_sitesettings_text_about_us'),
+        ("core", "0002_sitesettings_title_alter_sitesettings_text_about_us"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='sitesettings',
-            name='address',
-            field=models.CharField(blank=True, max_length=350, null=True, verbose_name='آدرس'),
+            model_name="sitesettings",
+            name="address",
+            field=models.CharField(
+                blank=True, max_length=350, null=True, verbose_name="آدرس"
+            ),
         ),
         migrations.AlterField(
-            model_name='sitesettings',
-            name='title',
-            field=models.CharField(blank=True, max_length=100, null=True, verbose_name='عنوان فروشگاه'),
+            model_name="sitesettings",
+            name="title",
+            field=models.CharField(
+                blank=True, max_length=100, null=True, verbose_name="عنوان فروشگاه"
+            ),
         ),
     ]

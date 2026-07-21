@@ -1,17 +1,17 @@
 from django.contrib.auth.models import BaseUserManager
-#پروفایل ادمین
+
+# پروفایل ادمین
+
 
 class UserManager(BaseUserManager):
-    def create_user(self, phone, password=None, first_name=None, last_name=None, **extra_fields):
+    def create_user(
+        self, phone, password=None, first_name=None, last_name=None, **extra_fields
+    ):
 
         if not phone:
             raise ValueError("لطفا شماره تلفن را وارد کنید")
 
-        user = self.model(
-            phone=phone,
-            password=password,
-            **extra_fields
-        )
+        user = self.model(phone=phone, password=password, **extra_fields)
 
         user.set_password(password)
         user.save(using=self._db)

@@ -1,9 +1,8 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from .forms import ContactUs
 from Products.models import Products
 from django.db import models
 from django.views.generic import TemplateView
-
 
 # def contact(request):
 #     if request.method == 'POST':
@@ -21,20 +20,14 @@ from django.views.generic import TemplateView
 
 
 class About_Me(TemplateView):
-    
+
     template_name = "contact-us/aboute-me.html"
-   
-    
+
+
 class Contact_Us(TemplateView):
-    
+
     template_name = "contact-us/contact-us.html"
-    
-    
+
+
 class Welcome(TemplateView):
     template_name = "welcome.html"
-    
-
-
-
-
-

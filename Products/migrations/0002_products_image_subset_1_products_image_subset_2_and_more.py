@@ -7,42 +7,90 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Products', '0001_initial'),
+        ("Products", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='products',
-            name='image_subset_1',
-            field=models.ImageField(blank=True, null=True, upload_to='product/image', verbose_name=' بارگذاری تصویر اصلی'),
+            model_name="products",
+            name="image_subset_1",
+            field=models.ImageField(
+                blank=True,
+                null=True,
+                upload_to="product/image",
+                verbose_name=" بارگذاری تصویر اصلی",
+            ),
         ),
         migrations.AddField(
-            model_name='products',
-            name='image_subset_2',
-            field=models.ImageField(blank=True, null=True, upload_to='product/image', verbose_name=' بارگذاری تصویر اصلی'),
+            model_name="products",
+            name="image_subset_2",
+            field=models.ImageField(
+                blank=True,
+                null=True,
+                upload_to="product/image",
+                verbose_name=" بارگذاری تصویر اصلی",
+            ),
         ),
         migrations.AddField(
-            model_name='products',
-            name='image_subset_3',
-            field=models.ImageField(blank=True, null=True, upload_to='product/image', verbose_name=' بارگذاری تصویر اصلی'),
+            model_name="products",
+            name="image_subset_3",
+            field=models.ImageField(
+                blank=True,
+                null=True,
+                upload_to="product/image",
+                verbose_name=" بارگذاری تصویر اصلی",
+            ),
         ),
         migrations.AlterField(
-            model_name='products',
-            name='image',
-            field=models.ImageField(blank=True, null=True, upload_to='product/image', verbose_name=' بارگذاری تصویر اصلی'),
+            model_name="products",
+            name="image",
+            field=models.ImageField(
+                blank=True,
+                null=True,
+                upload_to="product/image",
+                verbose_name=" بارگذاری تصویر اصلی",
+            ),
         ),
         migrations.AlterField(
-            model_name='products',
-            name='price',
-            field=models.DecimalField(decimal_places=2, max_digits=10, verbose_name='قیمت'),
+            model_name="products",
+            name="price",
+            field=models.DecimalField(
+                decimal_places=2, max_digits=10, verbose_name="قیمت"
+            ),
         ),
         migrations.CreateModel(
-            name='Information',
+            name="Information",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('Feature_title', models.CharField(blank=True, max_length=80, null=True, verbose_name='عنوان ویژگی')),
-                ('Featur', models.CharField(blank=True, max_length=60, null=True, verbose_name='ویژگی')),
-                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='information', to='Products.products', verbose_name='محصول')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "Feature_title",
+                    models.CharField(
+                        blank=True, max_length=80, null=True, verbose_name="عنوان ویژگی"
+                    ),
+                ),
+                (
+                    "Featur",
+                    models.CharField(
+                        blank=True, max_length=60, null=True, verbose_name="ویژگی"
+                    ),
+                ),
+                (
+                    "product",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="information",
+                        to="Products.products",
+                        verbose_name="محصول",
+                    ),
+                ),
             ],
         ),
     ]

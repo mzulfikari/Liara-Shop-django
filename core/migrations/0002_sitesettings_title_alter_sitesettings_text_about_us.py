@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0001_initial'),
+        ("core", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='sitesettings',
-            name='title',
+            model_name="sitesettings",
+            name="title",
             field=models.CharField(blank=True, max_length=100, null=True),
         ),
         migrations.AlterField(
-            model_name='sitesettings',
-            name='text_about_us',
-            field=models.TextField(blank=True, null=True, verbose_name='متن درباره ما'),
+            model_name="sitesettings",
+            name="text_about_us",
+            field=models.TextField(blank=True, null=True, verbose_name="متن درباره ما"),
         ),
     ]

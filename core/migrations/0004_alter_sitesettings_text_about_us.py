@@ -7,13 +7,15 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0003_alter_sitesettings_address_alter_sitesettings_title'),
+        ("core", "0003_alter_sitesettings_address_alter_sitesettings_title"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='sitesettings',
-            name='text_about_us',
-            field=django_ckeditor_5.fields.CKEditor5Field(blank=True, null=True, verbose_name='متن درباره ما'),
+            model_name="sitesettings",
+            name="text_about_us",
+            field=django_ckeditor_5.fields.CKEditor5Field(
+                blank=True, null=True, verbose_name="متن درباره ما"
+            ),
         ),
     ]

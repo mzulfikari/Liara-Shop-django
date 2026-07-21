@@ -7,24 +7,42 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Products', '0011_alter_color_color_code_alter_products_price'),
+        ("Products", "0011_alter_color_color_code_alter_products_price"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='color',
-            name='color_code',
-            field=colorfield.fields.ColorField(default='#229605', help_text='این یک کد رنگی است', image_field=None, max_length=20, samples=None, unique=True, verbose_name='کد رنگ'),
+            model_name="color",
+            name="color_code",
+            field=colorfield.fields.ColorField(
+                default="#229605",
+                help_text="این یک کد رنگی است",
+                image_field=None,
+                max_length=20,
+                samples=None,
+                unique=True,
+                verbose_name="کد رنگ",
+            ),
         ),
         migrations.AlterField(
-            model_name='color',
-            name='title',
-            field=models.CharField(default='بدون عنوان', help_text='لطفا عنوان را خالی نگذارید', max_length=30, verbose_name='عنوان رنگ'),
+            model_name="color",
+            name="title",
+            field=models.CharField(
+                default="بدون عنوان",
+                help_text="لطفا عنوان را خالی نگذارید",
+                max_length=30,
+                verbose_name="عنوان رنگ",
+            ),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='products',
-            name='color',
-            field=models.ManyToManyField(blank=True, related_name='colors', to='Products.color', verbose_name='رنگ بندی ها'),
+            model_name="products",
+            name="color",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="colors",
+                to="Products.color",
+                verbose_name="رنگ بندی ها",
+            ),
         ),
     ]

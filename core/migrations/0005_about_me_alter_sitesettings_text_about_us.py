@@ -7,22 +7,47 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0004_alter_sitesettings_text_about_us'),
+        ("core", "0004_alter_sitesettings_text_about_us"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='About_Me',
+            name="About_Me",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(blank=True, max_length=60, null=True, verbose_name='عنوان')),
-                ('image', models.ImageField(blank=True, null=True, upload_to='', verbose_name='تصویر')),
-                ('text', django_ckeditor_5.fields.CKEditor5Field(blank=True, null=True, verbose_name='متن درباره ما')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title",
+                    models.CharField(
+                        blank=True, max_length=60, null=True, verbose_name="عنوان"
+                    ),
+                ),
+                (
+                    "image",
+                    models.ImageField(
+                        blank=True, null=True, upload_to="", verbose_name="تصویر"
+                    ),
+                ),
+                (
+                    "text",
+                    django_ckeditor_5.fields.CKEditor5Field(
+                        blank=True, null=True, verbose_name="متن درباره ما"
+                    ),
+                ),
             ],
         ),
         migrations.AlterField(
-            model_name='sitesettings',
-            name='text_about_us',
-            field=django_ckeditor_5.fields.CKEditor5Field(blank=True, null=True, verbose_name='متن درباره ما بخش فوتر'),
+            model_name="sitesettings",
+            name="text_about_us",
+            field=django_ckeditor_5.fields.CKEditor5Field(
+                blank=True, null=True, verbose_name="متن درباره ما بخش فوتر"
+            ),
         ),
     ]

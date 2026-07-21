@@ -6,13 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('account', '0003_remove_user_created_at_alter_user_authentication_and_more'),
+        ("account", "0003_remove_user_created_at_alter_user_authentication_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='image',
-            field=models.ImageField(blank=True, null=True, upload_to='images/profile', verbose_name='پروفایل'),
+            model_name="user",
+            name="image",
+            field=models.ImageField(
+                blank=True,
+                null=True,
+                upload_to="images/profile",
+                verbose_name="پروفایل",
+            ),
         ),
     ]

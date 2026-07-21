@@ -6,16 +6,16 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Products', '0017_category_slug_products_slug'),
+        ("Products", "0017_category_slug_products_slug"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='category',
-            name='views',
-            field=models.BooleanField(default=True, verbose_name='نمایش در صحفه اصلی '),
+            model_name="category",
+            name="views",
+            field=models.BooleanField(default=True, verbose_name="نمایش در صحفه اصلی "),
         ),
         migrations.DeleteModel(
-            name='Comment',
+            name="Comment",
         ),
     ]

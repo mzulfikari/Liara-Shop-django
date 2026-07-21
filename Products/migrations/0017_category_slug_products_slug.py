@@ -6,20 +6,28 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Products', '0016_delete_like'),
+        ("Products", "0016_delete_like"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='category',
-            name='slug',
-            field=models.SlugField(default=1, help_text='مقدار به صورت خودکار از عنوان دسته بندی استلفاده می شود', verbose_name='نامک'),
+            model_name="category",
+            name="slug",
+            field=models.SlugField(
+                default=1,
+                help_text="مقدار به صورت خودکار از عنوان دسته بندی استلفاده می شود",
+                verbose_name="نامک",
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='products',
-            name='slug',
-            field=models.SlugField(default=1, help_text='مقدار به صورت خودکار از عنوان محصول استلفاده می شود', verbose_name='نامک'),
+            model_name="products",
+            name="slug",
+            field=models.SlugField(
+                default=1,
+                help_text="مقدار به صورت خودکار از عنوان محصول استلفاده می شود",
+                verbose_name="نامک",
+            ),
             preserve_default=False,
         ),
     ]

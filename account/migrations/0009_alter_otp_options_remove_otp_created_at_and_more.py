@@ -9,50 +9,72 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('account', '0008_alter_user_national_code_and_more'),
+        ("account", "0008_alter_user_national_code_and_more"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='otp',
+            name="otp",
             options={},
         ),
         migrations.RemoveField(
-            model_name='otp',
-            name='created_at',
+            model_name="otp",
+            name="created_at",
         ),
         migrations.RemoveField(
-            model_name='otp',
-            name='expiry_minutes',
+            model_name="otp",
+            name="expiry_minutes",
         ),
         migrations.AddField(
-            model_name='otp',
-            name='code_expiry',
-            field=models.DateTimeField(default=datetime.datetime(2025, 7, 25, 20, 30, 55, 183686, tzinfo=datetime.timezone.utc), verbose_name='تاریخ انقضای کد'),
+            model_name="otp",
+            name="code_expiry",
+            field=models.DateTimeField(
+                default=datetime.datetime(
+                    2025, 7, 25, 20, 30, 55, 183686, tzinfo=datetime.timezone.utc
+                ),
+                verbose_name="تاریخ انقضای کد",
+            ),
         ),
         migrations.AddField(
-            model_name='otp',
-            name='is_used',
-            field=models.BooleanField(default=False, verbose_name='استفاده شده؟'),
+            model_name="otp",
+            name="is_used",
+            field=models.BooleanField(default=False, verbose_name="استفاده شده؟"),
         ),
         migrations.AlterField(
-            model_name='otp',
-            name='phone',
-            field=models.CharField(max_length=11, validators=[django.core.validators.RegexValidator(message='شماره تلفن باید با 09 شروع شده و 11 رقم باشد', regex='^09\\d{9}$')], verbose_name='شماره تلفن'),
+            model_name="otp",
+            name="phone",
+            field=models.CharField(
+                max_length=11,
+                validators=[
+                    django.core.validators.RegexValidator(
+                        message="شماره تلفن باید با 09 شروع شده و 11 رقم باشد",
+                        regex="^09\\d{9}$",
+                    )
+                ],
+                verbose_name="شماره تلفن",
+            ),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='email',
-            field=models.EmailField(blank=True, max_length=254, null=True, verbose_name='ایمیل'),
+            model_name="user",
+            name="email",
+            field=models.EmailField(
+                blank=True, max_length=254, null=True, verbose_name="ایمیل"
+            ),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='is_active',
-            field=models.BooleanField(default=True, verbose_name='فعال'),
+            model_name="user",
+            name="is_active",
+            field=models.BooleanField(default=True, verbose_name="فعال"),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='national_code',
-            field=models.CharField(blank=True, max_length=10, null=True, validators=[utils.validator.persian_national_code], verbose_name='کد ملی'),
+            model_name="user",
+            name="national_code",
+            field=models.CharField(
+                blank=True,
+                max_length=10,
+                null=True,
+                validators=[utils.validator.persian_national_code],
+                verbose_name="کد ملی",
+            ),
         ),
     ]

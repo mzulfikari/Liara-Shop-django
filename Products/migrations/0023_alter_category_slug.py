@@ -6,13 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Products', '0022_alter_products_slug'),
+        ("Products", "0022_alter_products_slug"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='category',
-            name='slug',
-            field=models.SlugField(blank=True, help_text='مقدار به صورت خودکار از عنوان محصول استلفاده می شود', unique=True, verbose_name='نامک'),
+            model_name="category",
+            name="slug",
+            field=models.SlugField(
+                blank=True,
+                help_text="مقدار به صورت خودکار از عنوان محصول استلفاده می شود",
+                unique=True,
+                verbose_name="نامک",
+            ),
         ),
     ]

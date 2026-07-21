@@ -6,18 +6,25 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Products', '0003_category_views_alter_products_image_subset_1_and_more'),
+        ("Products", "0003_category_views_alter_products_image_subset_1_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='category',
-            name='image',
-            field=models.ImageField(blank=True, null=True, upload_to='category/image', verbose_name='تصویر دسته بندی'),
+            model_name="category",
+            name="image",
+            field=models.ImageField(
+                blank=True,
+                null=True,
+                upload_to="category/image",
+                verbose_name="تصویر دسته بندی",
+            ),
         ),
         migrations.AlterField(
-            model_name='category',
-            name='views',
-            field=models.BooleanField(default=False, verbose_name='نمایش در صحفه اصلی '),
+            model_name="category",
+            name="views",
+            field=models.BooleanField(
+                default=False, verbose_name="نمایش در صحفه اصلی "
+            ),
         ),
     ]

@@ -6,27 +6,31 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('account', '0002_alter_user_national_code'),
+        ("account", "0002_alter_user_national_code"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='user',
-            name='created_at',
+            model_name="user",
+            name="created_at",
         ),
         migrations.AlterField(
-            model_name='user',
-            name='Authentication',
-            field=models.BooleanField(blank=True, default=False, null=True, verbose_name='وضعیت احراز هویت'),
+            model_name="user",
+            name="Authentication",
+            field=models.BooleanField(
+                blank=True, default=False, null=True, verbose_name="وضعیت احراز هویت"
+            ),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='is_admin',
-            field=models.BooleanField(default=False, verbose_name='وضعیت ادمین'),
+            model_name="user",
+            name="is_admin",
+            field=models.BooleanField(default=False, verbose_name="وضعیت ادمین"),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='verification_time',
-            field=models.DateField(blank=True, null=True, verbose_name='تاریخ احراز هویت'),
+            model_name="user",
+            name="verification_time",
+            field=models.DateField(
+                blank=True, null=True, verbose_name="تاریخ احراز هویت"
+            ),
         ),
     ]

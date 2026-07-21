@@ -7,21 +7,43 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('account', '0006_alter_user_options_remove_user_authentication_and_more'),
+        ("account", "0006_alter_user_options_remove_user_authentication_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='card_number',
-            field=models.CharField(blank=True, max_length=16, null=True, validators=[django.core.validators.RegexValidator(code='invalid_card_number', message='شماره کارت باید 16 رقم باشد', regex='^\\d{16}$')], verbose_name='شماره کارت'),
+            model_name="user",
+            name="card_number",
+            field=models.CharField(
+                blank=True,
+                max_length=16,
+                null=True,
+                validators=[
+                    django.core.validators.RegexValidator(
+                        code="invalid_card_number",
+                        message="شماره کارت باید 16 رقم باشد",
+                        regex="^\\d{16}$",
+                    )
+                ],
+                verbose_name="شماره کارت",
+            ),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='phone',
-            field=models.CharField(max_length=255, unique=True, validators=[django.core.validators.RegexValidator(message='شماره تلفن باید با 09 شروع شده و 11 رقم باشد', regex='^09\\d{9}$')], verbose_name='شماره تلفن'),
+            model_name="user",
+            name="phone",
+            field=models.CharField(
+                max_length=255,
+                unique=True,
+                validators=[
+                    django.core.validators.RegexValidator(
+                        message="شماره تلفن باید با 09 شروع شده و 11 رقم باشد",
+                        regex="^09\\d{9}$",
+                    )
+                ],
+                verbose_name="شماره تلفن",
+            ),
         ),
         migrations.DeleteModel(
-            name='Notification',
+            name="Notification",
         ),
     ]

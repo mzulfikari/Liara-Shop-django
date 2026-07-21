@@ -7,18 +7,28 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Products', '0010_alter_comment_options_comment_status'),
+        ("Products", "0010_alter_comment_options_comment_status"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='color',
-            name='color_code',
-            field=colorfield.fields.ColorField(default='#229605', help_text='این یک کد رنگی پیش فرض است', image_field=None, max_length=20, samples=None, unique=True, verbose_name='کد رنگ'),
+            model_name="color",
+            name="color_code",
+            field=colorfield.fields.ColorField(
+                default="#229605",
+                help_text="این یک کد رنگی پیش فرض است",
+                image_field=None,
+                max_length=20,
+                samples=None,
+                unique=True,
+                verbose_name="کد رنگ",
+            ),
         ),
         migrations.AlterField(
-            model_name='products',
-            name='price',
-            field=models.DecimalField(decimal_places=0, max_digits=10, verbose_name='قیمت'),
+            model_name="products",
+            name="price",
+            field=models.DecimalField(
+                decimal_places=0, max_digits=10, verbose_name="قیمت"
+            ),
         ),
     ]

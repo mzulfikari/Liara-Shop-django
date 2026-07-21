@@ -29,11 +29,9 @@
       <!-- OPACITY SCREEN FOR SEARCH INPUT FOCUS -->
       <div class="absolute w-full h-screen bg-gray-200 opacity-40 z-40 hidden" id="opacitiScreen" onclick="closeScreen()">
       </div>
-    </div>
+   
     <!-- MAIN -->
     <!-- HERO SLIDER -->
-   <!-- HERO SLIDER -->
-
   <div class="md:w-[100%] mx-auto md:mt-5 hidden md:block">
     <div dir="ltr" class="owl-carousel">
 
@@ -55,7 +53,7 @@
   <div class="md:w-[100%] mx-auto md:mt-5 md:hidden">
     <div dir="ltr" class="owl-carousel">
 
-      {% for banner in Banners %}
+      {% for banner in  header_banners %}
       <div class="box-border">
         <img class="rounded-md md:rounded-3xl md:px-2 box-border" src="{{ banner.image.url }}"
           alt="{{ banner.title }}" />
@@ -110,64 +108,32 @@
 
       <div class="my-10">
         <a href="./search.html">
-          <img class="rounded-2xl hidden md:block" src="{{ discount_banner.image.url }}" alt="">
+          <img class="rounded-2xl w-full" src="{{ discount_banner.image.url }}" alt="">
         </a>
       </div>
       <!-- SUGGESTED CATEGORY PRODUCTS -->
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-y-3 bg-white mb-10 lg:rounded-xl border divide-y-2 sm:divide-y-0">
-        <div class="bg-white p-3 lg:rounded-r-xl border-l">
-          <div class="flex flex-col gap-y-2 mb-5">
-            <div class="opacity-80">لپ تاپ و کامپیوتر خانگی</div>
-            <div class="opacity-70 text-xs">بر اساس بازدیدهای شما</div>
-          </div>
-          <div class="grid grid-cols-2">
-            <div class="border-l border-b py-2"><a href="#"><img class="max-w-[130px] mx-auto" src="{% static  'image/suggested product/l1.webp' %}" alt=""></a></div>
-            <div class="border-b py-2"><a href="#"><img class="max-w-[130px] mx-auto" src="{% static  'image/suggested product/l2.webp' %}" alt=""></a></div>
-            <div class="border-l py-2"><a href="#"><img class="max-w-[130px] mx-auto" src="{% static  'image/suggested product/l3.webp' %}" alt=""></a></div>
-            <div class="py-2"><a href="#"><img class="max-w-[130px] mx-auto" src="{% static  'image/suggested product/l4.webp' %}" alt=""></a></div>
-          </div>
-          <div class="flex justify-center text-sm text-red-500 hover:text-red-600 transition mt-5"><a href="#">مشاهده همه</a></div>
-        </div>
-        <div class="bg-white p-3 border-l">
-          <div class="flex flex-col gap-y-2 mb-5">
-            <div class="opacity-80">گوشی موبایل</div>
-            <div class="opacity-70 text-xs">بر اساس بازدیدهای شما</div>
-          </div>
-          <div class="grid grid-cols-2">
-            <div class="border-l border-b py-2"><a href="#"><img class="max-w-[130px] mx-auto" src="{% static  'image/suggested product/m1.jpg' %}" alt=""></a></div>
-            <div class="border-b py-2"><a href="#"><img class="max-w-[130px] mx-auto" src="{% static  'image/suggested product/m2.jpg' %}" alt=""></a></div>
-            <div class="border-l py-2"><a href="#"><img class="max-w-[130px] mx-auto" src="{% static  'image/suggested product/m3.jpg' %}" alt=""></a></div>
-            <div class="py-2"><a href="#"><img class="max-w-[130px] mx-auto" src="{% static  'image/suggested product/m4.jpg' %}" alt=""></a></div>
-          </div>
-          <div class="flex justify-center text-sm text-red-500 hover:text-red-600 transition mt-5"><a href="#">مشاهده همه</a></div>
-        </div>
-        <div class="bg-white p-3 border-l">
-          <div class="flex flex-col gap-y-2 mb-5">
-            <div class="opacity-80">هدفون، هدست و هندزفری</div>
-            <div class="opacity-70 text-xs">بر اساس بازدیدهای شما</div>
-          </div>
-          <div class="grid grid-cols-2">
-            <div class="border-l border-b py-2"><a href="#"><img class="max-w-[130px] mx-auto" src="{% static  'image/suggested product/h1.jpg' %}" alt=""></a></div>
-            <div class="border-b py-2"><a href="#"><img class="max-w-[130px] mx-auto" src="{% static  'image/suggested product/h2.jpg' %}" alt=""></a></div>
-            <div class="border-l py-2"><a href="#"><img class="max-w-[130px] mx-auto" src="{% static  'image/suggested product/h3.jpg' %}" alt=""></a></div>
-            <div class="py-2"><a href="#"><img class="max-w-[130px] mx-auto" src="{% static  'image/suggested product/h4.jpg' %}" alt=""></a></div>
-          </div>
-          <div class="flex justify-center text-sm text-red-500 hover:text-red-600 transition mt-5"><a href="#">مشاهده همه</a></div>
-        </div>
-        <div class="bg-white p-3 lg:rounded-l-xl">
-          <div class="flex flex-col gap-y-2 mb-5">
-            <div class="opacity-80">ساعت هوشمند</div>
-            <div class="opacity-70 text-xs">بر اساس بازدیدهای شما</div>
-          </div>
-          <div class="grid grid-cols-2">
-            <div class="border-l border-b py-2"><a href="#"><img class="max-w-[130px] mx-auto" src="{% static  'image/suggested product/w1.jpg' %}" alt=""></a></div>
-            <div class="border-b py-2"><a href="#"><img class="max-w-[130px] mx-auto" src="{% static  'image/suggested product/w2.jpg' %}" alt=""></a></div>
-            <div class="border-l py-2"><a href="#"><img class="max-w-[130px] mx-auto" src="{% static  'image/suggested product/w3.jpg' %}" alt=""></a></div>
-            <div class="py-2"><a href="#"><img class="max-w-[130px] mx-auto" src="{% static  'image/suggested product/w4.jpg' %}" alt=""></a></div>
-          </div>
-          <div class="flex justify-center text-sm text-red-500 hover:text-red-600 transition mt-5"><a href="#">مشاهده همه</a></div>
-        </div>
-      </div>
+      <!--CATEGORYS -->
+  <div class="bg-white rounded-2xl py-6 shadow-xl my-10">
+    <div class="flex justify-between px-5 pb-5 md:px-10 items-center">
+      <div class="border-b-2 border-red-500 pb-1">دسته بندی ها </div>
+      <a href="{% url 'Product:Product_list' %}">
+        <div class="transition px-4 py-2 rounded-xl flex justify-center items-center text-red-500 hover:text-red-600">
+          دیدن همه<img class="w-4" src="{% static 'image/arrow-left.png' %}" alt=""></div>
+      </a>
+    </div>
+    <div
+      class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-x-4 gap-y-4 md:gap-x-8 2xl:gap-x-10 px-3 md:px-8 lg:px-28">
+
+      {% for Category in Categories %}
+      <a href="{% url 'Product:Product_list' %}" class="flex justify-center items-center flex-col gap-y-3 hover:scale-105 transition">
+        <img src="{{ Category.image.url }}" width="160px" height="200px" style="border-radius: 50%"
+          alt="{{ Category.title }}">
+        <div class="text-sm opacity-90">{{ Category.title }}</div>
+        {% endfor %}
+
+      </a>
+    </div>
+  </div>
       <!-- 4 IMAGE -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <a href="./search.html">
@@ -183,43 +149,7 @@
           <img class="rounded-xl" src="{{ banner_4.image.url }}" alt="">
         </a>
       </div>
-      <!-- GOOD CATEGORYS -->
-      <div class="bg-white rounded-2xl py-6 shadow-xl my-10">
-        <div class="flex justify-between px-5 pb-5 md:px-10 items-center">
-          <div class="border-b-2 border-red-500 pb-1">دسته بندی های محبوب</div>
-          <a href="./search.html"><div class="transition px-4 py-2 rounded-xl flex justify-center items-center text-red-500 hover:text-red-600">دیدن همه<img class="w-4" src="{% static  'image/arrow-left.png' %}" alt=""></div></a>
-        </div>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-x-4 gap-y-4 md:gap-x-8 2xl:gap-x-10 px-3 md:px-8 lg:px-28">
-          <a href="./search.html" class="flex justify-center items-center flex-col gap-y-3 hover:scale-105 transition">
-            <img src="{% static  'image/goodCategory/mobile.webp' %}" alt="">
-            <div class="text-sm opacity-90">موبایل</div>
-          </a>
-          <a href="./search.html" class="flex justify-center items-center flex-col gap-y-3 hover:scale-105 transition">
-            <img src="{% static  'image/goodCategory/biutiful.webp' %}" alt="">
-            <div class="text-sm opacity-90">زیبایی</div>
-          </a>
-          <a href="./search.html" class="flex justify-center items-center flex-col gap-y-3 hover:scale-105 transition">
-            <img src="{% static  'image/goodCategory/book.webp' %}" alt="">
-            <div class="text-sm opacity-90">کتاب و دفتر</div>
-          </a>
-          <a href="./search.html" class="flex justify-center items-center flex-col gap-y-3 hover:scale-105 transition">
-            <img src="{% static  'image/goodCategory/digital.webp' %}" alt="">
-            <div class="text-sm opacity-90">کالای دیجیتال</div>
-          </a>
-          <a href="./search.html" class="flex justify-center items-center flex-col gap-y-3 hover:scale-105 transition">
-            <img src="{% static  'image/goodCategory/market.webp' %}" alt="">
-            <div class="text-sm opacity-90">سوپر مارکت</div>
-          </a>
-          <a href="./search.html" class="flex justify-center items-center flex-col gap-y-3 hover:scale-105 transition">
-            <img src="{% static  'image/goodCategory/mode.webp' %}" alt="">
-            <div class="text-sm opacity-90">مد و پوشاک</div>
-          </a>
-          <a href="./search.html" class="flex justify-center items-center flex-col gap-y-3 hover:scale-105 transition">
-            <img src="{% static  'image/goodCategory/tools.webp' %}" alt="">
-            <div class="text-sm opacity-90">ابزارآلات</div>
-          </a>
-        </div>
-      </div>
+      
       <!-- PRODUCT SLIDER 2 -->
       <div class="bg-white rounded-2xl pt-10 shadow-xl my-10">
         <!-- TOP SLIDER -->
@@ -372,57 +302,30 @@
       <!-- SECTION IMAGE 2 -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <a href="./search.html">
-          <img class="rounded-xl" src="{% static  'image/twoImage/1.jpg' %}" alt="">
+          <img class="rounded-xl" src="{{ banner_2_1.image.url }}" alt="">
         </a>
         <a href="./search.html">
-          <img class="rounded-xl" src="{% static  'image/twoImage/2.jpg' %}" alt="">
+          <img class="rounded-xl" src="{{ banner_2_2.image.url }}" alt="">
         </a>
       </div>
-      <!-- BRANDS -->
+       <!-- BRANDS -->
       <div class="bg-white rounded-2xl pt-5 shadow-xl my-10">
         <!-- TOP SLIDER -->
         <div class="flex justify-center px-5 md:px-10 items-center">
           <div class="border-b-2 border-red-500 pb-1">محبوب ترین برندها</div>
         </div>
         <!-- SLIDER -->
-        <div class="containerPSlider swiper">
+        <div class="containerPSlider swiper">      
           <div class="slide-container-brand px-2">
             <div class="card-wrapper swiper-wrapper py-4 items-center">
+              {% for brand in brands %}
               <a href="./#" class="card swiper-slide">
-                <img class="max-w-[110px]" src="{% static  'image/brands/1.png' %}" alt="" />
-              </a>
-              <a href="./#" class="card swiper-slide">
-                <img class="max-w-[110px]" src="{% static  'image/brands/2.png' %}" alt="" />
-              </a>
-              <a href="./#" class="card swiper-slide">
-                <img class="max-w-[110px]" src="{% static  'image/brands/3.png' %}" alt="" />
-              </a>
-              <a href="./#" class="card swiper-slide">
-                <img class="max-w-[110px]" src="{% static  'image/brands/4.png' %}" alt="" />
-              </a>
-              <a href="./#" class="card swiper-slide">
-                <img class="max-w-[110px]" src="{% static  'image/brands/5.jpg' %}" alt="" />
-              </a>
-              <a href="./#" class="card swiper-slide">
-                <img class="max-w-[110px]" src="{% static  'image/brands/6.png' %}" alt="" />
-              </a>
-              <a href="./#" class="card swiper-slide">
-                <img class="max-w-[110px]" src="{% static  'image/brands/7.jpg' %}" alt="" />
-              </a>
-              <a href="./#" class="card swiper-slide">
-                <img class="max-w-[110px]" src="{% static  'image/brands/8.png' %}" alt="" />
-              </a>
-              <a href="./#" class="card swiper-slide">
-                <img class="max-w-[110px]" src="{% static  'image/brands/9.png' %}" alt="" />
-              </a>
-              <a href="./#" class="card swiper-slide">
-                <img class="max-w-[110px]" src="{% static  'image/brands/1.png' %}" alt="" />
-              </a>
-              <a href="./#" class="card swiper-slide">
-                <img class="max-w-[110px]" src="{% static  'image/brands/1.png' %}" alt="" />
-              </a>
-            </div>
-          </div>
+                <img class="max-w-[110px]" src="{{ brand.image.url }}" alt="" />        
+                </a>
+              {% endfor %}
+              
+            </div>         
+          </div>        
           <div class="swiper-button-next swiper-navBtn"></div>
           <div class="swiper-button-prev swiper-navBtn"></div>
         </div>
@@ -577,9 +480,12 @@
         </div>
       </div>
      
+      </div>
+    
     <!-- FOOTER -->
         <!-- FOOTER -->
     {% include 'includes/footer.html' %}
+</div>
 
 </body>
 <!--DROPDOWNS FOR NAVBAR-->

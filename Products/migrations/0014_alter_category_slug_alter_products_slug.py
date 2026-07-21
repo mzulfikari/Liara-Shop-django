@@ -7,18 +7,22 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Products', '0013_category_slug_products_slug'),
+        ("Products", "0013_category_slug_products_slug"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='category',
-            name='slug',
-            field=autoslug.fields.AutoSlugField(default='temp-slug', editable=False, populate_from='title',blank=True),
+            model_name="category",
+            name="slug",
+            field=autoslug.fields.AutoSlugField(
+                default="temp-slug", editable=False, populate_from="title", blank=True
+            ),
         ),
         migrations.AlterField(
-            model_name='products',
-            name='slug',
-            field=autoslug.fields.AutoSlugField(default='temp-slug', editable=False, populate_from='title',blank=True),
+            model_name="products",
+            name="slug",
+            field=autoslug.fields.AutoSlugField(
+                default="temp-slug", editable=False, populate_from="title", blank=True
+            ),
         ),
     ]

@@ -1,56 +1,61 @@
 from datetime import timedelta
 from django.utils import timezone
 from django.db import models
-from django.contrib.auth.models import  AbstractBaseUser
+from django.contrib.auth.models import AbstractBaseUser
 from account.managment.managment import UserManager
 from django.utils.translation import gettext as _
-from  utils.validator import *
+from utils.validator import *
 from django.core.validators import RegexValidator
 from Products.models import *
-
 
 
 class User(AbstractBaseUser):
     """User profile that authenticates and
     logs in with a phone number or email"""
+
     phone = models.CharField(
-       verbose_name="شماره تلفن",
-       max_length=255,
-       unique=True,validators=[RegexValidator(regex=r'^09\d{9}$', message='شماره تلفن باید با 09 شروع شده و 11 رقم باشد')]
-        )
-    first_name = models.CharField(
-        max_length=50,verbose_name='نام'
-        )
-    last_name = models.CharField(
-        max_length=50, verbose_name='نام خانوادگی'
-        )
-    verification_time = models.DateField(
-        verbose_name="تاریخ عضویت ",auto_now_add=True
-        )
-    is_active = models.BooleanField(
-        default=True,verbose_name='فعال'
-        )
-    is_admin = models.BooleanField(
-        verbose_name='وضعیت ادمین',default=False
-        )
-    email = models.EmailField(
-        verbose_name= 'ایمیل',null=True,blank=True
-        )
+        verbose_name="شماره تلفن",
+        max_length=255,
+        unique=True,
+        validators=[
+            RegexValidator(
+                regex=r"^09\d{9}$",
+                message="شماره تلفن باید با 09 شروع شده و 11 رقم باشد",
+            )
+        ],
+    )
+    first_name = models.CharField(max_length=50, verbose_name="نام")
+    last_name = models.CharField(max_length=50, verbose_name="نام خانوادگی")
+    verification_time = models.DateField(verbose_name="تاریخ عضویت ", auto_now_add=True)
+    is_active = models.BooleanField(default=True, verbose_name="فعال")
+    is_admin = models.BooleanField(verbose_name="وضعیت ادمین", default=False)
+    email = models.EmailField(verbose_name="ایمیل", null=True, blank=True)
     image = models.ImageField(
-        upload_to="profile/imag", null=True, blank=True,verbose_name='پروفایل'
-        )
-    password = models.CharField(
-        max_length=300
-        )
-    national_code =models.CharField(
-        validators=[persian_national_code,],null=True, blank=True,verbose_name='کد ملی' ,max_length=10
-        )
+        upload_to="profile/imag", null=True, blank=True, verbose_name="پروفایل"
+    )
+    password = models.CharField(max_length=300)
+    national_code = models.CharField(
+        validators=[
+            persian_national_code,
+        ],
+        null=True,
+        blank=True,
+        verbose_name="کد ملی",
+        max_length=10,
+    )
     card_number = models.CharField(
-        max_length=16, 
-        validators=[RegexValidator(regex=r'^\d{16}$',
-        message='شماره کارت باید 16 رقم باشد',
-        code='invalid_card_number')],
-        null=True, blank=True, verbose_name='شماره کارت')
+        max_length=16,
+        validators=[
+            RegexValidator(
+                regex=r"^\d{16}$",
+                message="شماره کارت باید 16 رقم باشد",
+                code="invalid_card_number",
+            )
+        ],
+        null=True,
+        blank=True,
+        verbose_name="شماره کارت",
+    )
 
     objects = UserManager()
 
@@ -71,40 +76,39 @@ class User(AbstractBaseUser):
 
         return self.is_admin
 
-    class  Meta:
-        verbose_name = 'پروفایل'
-        verbose_name_plural = 'پروفایل ها'
+    class Meta:
+        verbose_name = "پروفایل"
+        verbose_name_plural = "پروفایل ها"
 
 
-
-#ریجستر و احراز هویت شماره تلفن
+# ریجستر و احراز هویت شماره تلفن
 class Otp(models.Model):
-    """ Authentication related model
+    """Authentication related model
     with token creation feature
     """
-    token = models.CharField(
-        max_length=200, null=True, verbose_name='توکن'
-        )
-    phone = models.CharField(
-    max_length=11,
-    validators=[RegexValidator(regex=r'^09\d{9}$', message='شماره تلفن باید با 09 شروع شده و 11 رقم باشد')],
-    verbose_name='شماره تلفن'
-        )
 
-    code = models.SmallIntegerField(
-        verbose_name='کد یکبار مصرف'
-        )
+    token = models.CharField(max_length=200, null=True, verbose_name="توکن")
+    phone = models.CharField(
+        max_length=11,
+        validators=[
+            RegexValidator(
+                regex=r"^09\d{9}$",
+                message="شماره تلفن باید با 09 شروع شده و 11 رقم باشد",
+            )
+        ],
+        verbose_name="شماره تلفن",
+    )
+
+    code = models.SmallIntegerField(verbose_name="کد یکبار مصرف")
     code_expiry = models.DateTimeField(
-        verbose_name='تاریخ انقضای کد',default=timezone.now() + timedelta(minutes=2),
-        )
-    is_used = models.BooleanField(
-        default=False, verbose_name='استفاده شده؟'
-        )
-    
-    
-    class  Meta:
-        verbose_name = 'رمز یکبار مصرف'
-        verbose_name_plural = ' احراز هویت Otp'
+        verbose_name="تاریخ انقضای کد",
+        default=timezone.now() + timedelta(minutes=2),
+    )
+    is_used = models.BooleanField(default=False, verbose_name="استفاده شده؟")
+
+    class Meta:
+        verbose_name = "رمز یکبار مصرف"
+        verbose_name_plural = " احراز هویت Otp"
 
     def is_valid(self, code):
         if self.code == code and not self.is_used and self.code_expiry:
@@ -122,7 +126,9 @@ class Otp(models.Model):
 
     @classmethod
     def clean_expired_codes(cls):
-        cls.objects.filter(models.Q(is_used=True) | models.Q(code_expiry__lt=timezone.now())).delete()
+        cls.objects.filter(
+            models.Q(is_used=True) | models.Q(code_expiry__lt=timezone.now())
+        ).delete()
 
 
 def create_user_profile(sender, instance, created, **kwargs):
@@ -132,8 +138,3 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
-    
-    
-
-
-

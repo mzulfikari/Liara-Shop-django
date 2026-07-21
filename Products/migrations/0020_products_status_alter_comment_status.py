@@ -6,18 +6,27 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Products', '0019_comment'),
+        ("Products", "0019_comment"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='products',
-            name='status',
-            field=models.BooleanField(default=True, verbose_name='وضعیت'),
+            model_name="products",
+            name="status",
+            field=models.BooleanField(default=True, verbose_name="وضعیت"),
         ),
         migrations.AlterField(
-            model_name='comment',
-            name='status',
-            field=models.CharField(choices=[('Awaiting confirmation', 'در انتظار تایید'), ('It was confirmed', 'تایید شد'), ('rejected', 'رد شد')], default='published', max_length=30, verbose_name='وضعیت'),
+            model_name="comment",
+            name="status",
+            field=models.CharField(
+                choices=[
+                    ("Awaiting confirmation", "در انتظار تایید"),
+                    ("It was confirmed", "تایید شد"),
+                    ("rejected", "رد شد"),
+                ],
+                default="published",
+                max_length=30,
+                verbose_name="وضعیت",
+            ),
         ),
     ]

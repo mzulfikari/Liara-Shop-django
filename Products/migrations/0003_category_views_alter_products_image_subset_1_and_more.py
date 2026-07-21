@@ -6,28 +6,45 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Products', '0002_products_image_subset_1_products_image_subset_2_and_more'),
+        ("Products", "0002_products_image_subset_1_products_image_subset_2_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='category',
-            name='views',
-            field=models.BooleanField(default=False, verbose_name='نمایش دسته بندی در صحفه اصلی '),
+            model_name="category",
+            name="views",
+            field=models.BooleanField(
+                default=False, verbose_name="نمایش دسته بندی در صحفه اصلی "
+            ),
         ),
         migrations.AlterField(
-            model_name='products',
-            name='image_subset_1',
-            field=models.ImageField(blank=True, null=True, upload_to='product/image', verbose_name=' بارگذاری تصویر دوم'),
+            model_name="products",
+            name="image_subset_1",
+            field=models.ImageField(
+                blank=True,
+                null=True,
+                upload_to="product/image",
+                verbose_name=" بارگذاری تصویر دوم",
+            ),
         ),
         migrations.AlterField(
-            model_name='products',
-            name='image_subset_2',
-            field=models.ImageField(blank=True, null=True, upload_to='product/image', verbose_name='بارگذاری تصویر سوم '),
+            model_name="products",
+            name="image_subset_2",
+            field=models.ImageField(
+                blank=True,
+                null=True,
+                upload_to="product/image",
+                verbose_name="بارگذاری تصویر سوم ",
+            ),
         ),
         migrations.AlterField(
-            model_name='products',
-            name='image_subset_3',
-            field=models.ImageField(blank=True, null=True, upload_to='product/image', verbose_name=' بارگذاری تصویر چهارم'),
+            model_name="products",
+            name="image_subset_3",
+            field=models.ImageField(
+                blank=True,
+                null=True,
+                upload_to="product/image",
+                verbose_name=" بارگذاری تصویر چهارم",
+            ),
         ),
     ]

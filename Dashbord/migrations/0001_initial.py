@@ -12,62 +12,192 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('Products', '0012_alter_color_color_code_alter_color_title_and_more'),
+        ("Products", "0012_alter_color_color_code_alter_color_title_and_more"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Address',
+            name="Address",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('receiver_name', models.CharField(max_length=100, verbose_name='نام و نام خانوداگی تحویل گیرنده')),
-                ('title', models.CharField(max_length=100, verbose_name='عنوان آدرس')),
-                ('full_address', models.TextField(max_length=300, verbose_name='آدرس کامل')),
-                ('phone_number', models.CharField(max_length=11, validators=[django.core.validators.RegexValidator(message='شماره موبایل باید با 09 شروع شده و 11 رقم باشد', regex='^09\\d{9}$')], verbose_name='شماره موبایل گیرنده')),
-                ('city', models.CharField(max_length=50, verbose_name='شهر')),
-                ('province', models.CharField(max_length=50, verbose_name='استان')),
-                ('is_default', models.BooleanField(default=False, verbose_name='آدرس پیش\u200c فرض')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد')),
-                ('updated_at', models.DateTimeField(auto_now=True, verbose_name='تاریخ به\u200cروزرسانی')),
-                ('postal_code', models.CharField(max_length=10, validators=[django.core.validators.RegexValidator(message='کد پستی باید 10 رقم باشد', regex='^\\d{10}$')], verbose_name='کد پستی')),
-                ('email', models.EmailField(blank=True, max_length=254, null=True, verbose_name='ایمیل تحویل گیرنده')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='addresses', to=settings.AUTH_USER_MODEL, verbose_name='کاربر')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "receiver_name",
+                    models.CharField(
+                        max_length=100, verbose_name="نام و نام خانوداگی تحویل گیرنده"
+                    ),
+                ),
+                ("title", models.CharField(max_length=100, verbose_name="عنوان آدرس")),
+                (
+                    "full_address",
+                    models.TextField(max_length=300, verbose_name="آدرس کامل"),
+                ),
+                (
+                    "phone_number",
+                    models.CharField(
+                        max_length=11,
+                        validators=[
+                            django.core.validators.RegexValidator(
+                                message="شماره موبایل باید با 09 شروع شده و 11 رقم باشد",
+                                regex="^09\\d{9}$",
+                            )
+                        ],
+                        verbose_name="شماره موبایل گیرنده",
+                    ),
+                ),
+                ("city", models.CharField(max_length=50, verbose_name="شهر")),
+                ("province", models.CharField(max_length=50, verbose_name="استان")),
+                (
+                    "is_default",
+                    models.BooleanField(
+                        default=False, verbose_name="آدرس پیش\u200c فرض"
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ایجاد"),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(
+                        auto_now=True, verbose_name="تاریخ به\u200cروزرسانی"
+                    ),
+                ),
+                (
+                    "postal_code",
+                    models.CharField(
+                        max_length=10,
+                        validators=[
+                            django.core.validators.RegexValidator(
+                                message="کد پستی باید 10 رقم باشد", regex="^\\d{10}$"
+                            )
+                        ],
+                        verbose_name="کد پستی",
+                    ),
+                ),
+                (
+                    "email",
+                    models.EmailField(
+                        blank=True,
+                        max_length=254,
+                        null=True,
+                        verbose_name="ایمیل تحویل گیرنده",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="addresses",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="کاربر",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'آدرس',
-                'verbose_name_plural': 'آدرس\u200c ها',
+                "verbose_name": "آدرس",
+                "verbose_name_plural": "آدرس\u200c ها",
             },
         ),
         migrations.CreateModel(
-            name='Notification',
+            name="Notification",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('message', models.TextField(verbose_name='پیام')),
-                ('is_for_all_users', models.BooleanField(default=False, help_text='با فعال\u200cسازی، اعلان به همه کاربران ارسال می\u200cشود', verbose_name='برای همه کاربران')),
-                ('is_active', models.BooleanField(default=True, verbose_name='فعال')),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now, verbose_name='تاریخ ایجاد')),
-                ('expiration_date', models.DateTimeField(blank=True, help_text='تاریخی که پس از آن اعلان به صورت خودکار حذف خواهد شد', null=True, verbose_name='تاریخ انقضا')),
-                ('users', models.ManyToManyField(blank=True, help_text='لیست کاربرانی که این اعلان را دریافت می\u200cکنند', related_name='notifications', to=settings.AUTH_USER_MODEL, verbose_name='کاربران هدف')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("message", models.TextField(verbose_name="پیام")),
+                (
+                    "is_for_all_users",
+                    models.BooleanField(
+                        default=False,
+                        help_text="با فعال\u200cسازی، اعلان به همه کاربران ارسال می\u200cشود",
+                        verbose_name="برای همه کاربران",
+                    ),
+                ),
+                ("is_active", models.BooleanField(default=True, verbose_name="فعال")),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="تاریخ ایجاد"
+                    ),
+                ),
+                (
+                    "expiration_date",
+                    models.DateTimeField(
+                        blank=True,
+                        help_text="تاریخی که پس از آن اعلان به صورت خودکار حذف خواهد شد",
+                        null=True,
+                        verbose_name="تاریخ انقضا",
+                    ),
+                ),
+                (
+                    "users",
+                    models.ManyToManyField(
+                        blank=True,
+                        help_text="لیست کاربرانی که این اعلان را دریافت می\u200cکنند",
+                        related_name="notifications",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="کاربران هدف",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'اعلان',
-                'verbose_name_plural': 'اعلان\u200c ها',
-                'ordering': ['-created_at'],
+                "verbose_name": "اعلان",
+                "verbose_name_plural": "اعلان\u200c ها",
+                "ordering": ["-created_at"],
             },
         ),
         migrations.CreateModel(
-            name='Favorites',
+            name="Favorites",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد')),
-                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Products.products', verbose_name='محصول مربوطه')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='کاربر')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ایجاد"),
+                ),
+                (
+                    "product",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="Products.products",
+                        verbose_name="محصول مربوطه",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="کاربر",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'لیست علاقه \u200cمندی',
-                'verbose_name_plural': 'لیست\u200c های علاقه \u200cمندی',
-                'unique_together': {('user', 'product')},
+                "verbose_name": "لیست علاقه \u200cمندی",
+                "verbose_name_plural": "لیست\u200c های علاقه \u200cمندی",
+                "unique_together": {("user", "product")},
             },
         ),
     ]

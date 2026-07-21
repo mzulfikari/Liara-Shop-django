@@ -15,54 +15,165 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Platform',
+            name="Platform",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(blank=True, choices=[('اینستاگرام', 'Instagram'), ('تلگرام', 'Telegram'), ('واتساپ', 'Whatsapp'), ('ایتا', 'Eita'), ('روبیکا', 'Rubika')], max_length=50, null=True, verbose_name='رسانه های موجود')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title",
+                    models.CharField(
+                        blank=True,
+                        choices=[
+                            ("اینستاگرام", "Instagram"),
+                            ("تلگرام", "Telegram"),
+                            ("واتساپ", "Whatsapp"),
+                            ("ایتا", "Eita"),
+                            ("روبیکا", "Rubika"),
+                        ],
+                        max_length=50,
+                        null=True,
+                        verbose_name="رسانه های موجود",
+                    ),
+                ),
             ],
             options={
-                'verbose_name_plural': 'مدیریت رسانه ها',
+                "verbose_name_plural": "مدیریت رسانه ها",
             },
         ),
         migrations.CreateModel(
-            name='Utm_info',
+            name="Utm_info",
             fields=[
-                ('utm_source', models.CharField(max_length=200, verbose_name='منبع ورودی ')),
-                ('utm_medium', models.CharField(max_length=200, verbose_name='رسانه')),
-                ('utm_campaign', models.CharField(max_length=200, verbose_name='کمپین')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد')),
-                ('base_url', models.URLField(verbose_name='لینک اصلی')),
-                ('sharing_url', models.URLField(blank=True, primary_key=True, serialize=False, unique=True, verbose_name='لینک اشتراک گذاری')),
-                ('platform', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='Social.platform', verbose_name='رسانه')),
+                (
+                    "utm_source",
+                    models.CharField(max_length=200, verbose_name="منبع ورودی "),
+                ),
+                ("utm_medium", models.CharField(max_length=200, verbose_name="رسانه")),
+                (
+                    "utm_campaign",
+                    models.CharField(max_length=200, verbose_name="کمپین"),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ایجاد"),
+                ),
+                ("base_url", models.URLField(verbose_name="لینک اصلی")),
+                (
+                    "sharing_url",
+                    models.URLField(
+                        blank=True,
+                        primary_key=True,
+                        serialize=False,
+                        unique=True,
+                        verbose_name="لینک اشتراک گذاری",
+                    ),
+                ),
+                (
+                    "platform",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="Social.platform",
+                        verbose_name="رسانه",
+                    ),
+                ),
             ],
             options={
-                'verbose_name_plural': 'مدیریت لینک ها',
+                "verbose_name_plural": "مدیریت لینک ها",
             },
         ),
         migrations.CreateModel(
-            name='Utm_access',
+            name="Utm_access",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('access_level', models.CharField(choices=[('view', 'مشاهده'), ('edit', 'ویرایش'), ('delete', 'pbt')], max_length=30, verbose_name='سطح دسترسی کاریر ')),
-                ('granted_at', models.DateTimeField(auto_now_add=True, verbose_name='تاریخ اعطای دسترسی')),
-                ('user_admin', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL, verbose_name='انتخاب کاربر ادمین')),
-                ('utm_info', models.ManyToManyField(to='Social.utm_info', verbose_name='لینک های قابل دسترس')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "access_level",
+                    models.CharField(
+                        choices=[
+                            ("view", "مشاهده"),
+                            ("edit", "ویرایش"),
+                            ("delete", "pbt"),
+                        ],
+                        max_length=30,
+                        verbose_name="سطح دسترسی کاریر ",
+                    ),
+                ),
+                (
+                    "granted_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="تاریخ اعطای دسترسی"
+                    ),
+                ),
+                (
+                    "user_admin",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="انتخاب کاربر ادمین",
+                    ),
+                ),
+                (
+                    "utm_info",
+                    models.ManyToManyField(
+                        to="Social.utm_info", verbose_name="لینک های قابل دسترس"
+                    ),
+                ),
             ],
             options={
-                'verbose_name_plural': 'سطح دسترسی به لینک ها ',
+                "verbose_name_plural": "سطح دسترسی به لینک ها ",
             },
         ),
         migrations.CreateModel(
-            name='Log_Utm',
+            name="Log_Utm",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('views', models.SmallIntegerField(verbose_name='بازدید ها')),
-                ('cart', models.CharField(max_length=50)),
-                ('platform', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='Social.platform', verbose_name='عنوان رسانه')),
-                ('url', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='Social.utm_info', verbose_name='لینک رسانه')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("views", models.SmallIntegerField(verbose_name="بازدید ها")),
+                ("cart", models.CharField(max_length=50)),
+                (
+                    "platform",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="Social.platform",
+                        verbose_name="عنوان رسانه",
+                    ),
+                ),
+                (
+                    "url",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="Social.utm_info",
+                        verbose_name="لینک رسانه",
+                    ),
+                ),
             ],
             options={
-                'verbose_name_plural': 'گزارشات ',
+                "verbose_name_plural": "گزارشات ",
             },
         ),
     ]

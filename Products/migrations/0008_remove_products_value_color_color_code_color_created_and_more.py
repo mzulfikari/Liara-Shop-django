@@ -7,42 +7,61 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Products', '0007_remove_products_slug'),
+        ("Products", "0007_remove_products_slug"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='products',
-            name='value',
+            model_name="products",
+            name="value",
         ),
         migrations.AddField(
-            model_name='color',
-            name='color_code',
-            field=models.CharField(default='#121111', help_text='این یک کد رنگی پیش فرض است', max_length=20, unique=True, verbose_name='کد رنگ'),
+            model_name="color",
+            name="color_code",
+            field=models.CharField(
+                default="#121111",
+                help_text="این یک کد رنگی پیش فرض است",
+                max_length=20,
+                unique=True,
+                verbose_name="کد رنگ",
+            ),
         ),
         migrations.AddField(
-            model_name='color',
-            name='created',
-            field=models.DateTimeField(auto_now_add=True, null=True, verbose_name='تاریخ ایجاد'),
+            model_name="color",
+            name="created",
+            field=models.DateTimeField(
+                auto_now_add=True, null=True, verbose_name="تاریخ ایجاد"
+            ),
         ),
         migrations.AddField(
-            model_name='products',
-            name='stock_count',
-            field=models.IntegerField(blank=True, null=True, verbose_name=' تعداد موجودی'),
+            model_name="products",
+            name="stock_count",
+            field=models.IntegerField(
+                blank=True, null=True, verbose_name=" تعداد موجودی"
+            ),
         ),
         migrations.AddField(
-            model_name='products',
-            name='updated_at',
-            field=models.DateTimeField(auto_now=True, verbose_name='تاریخ به\u200cروزرسانی'),
+            model_name="products",
+            name="updated_at",
+            field=models.DateTimeField(
+                auto_now=True, verbose_name="تاریخ به\u200cروزرسانی"
+            ),
         ),
         migrations.AddField(
-            model_name='products',
-            name='views',
-            field=models.IntegerField(default=0, editable=False, verbose_name='بازدید'),
+            model_name="products",
+            name="views",
+            field=models.IntegerField(default=0, editable=False, verbose_name="بازدید"),
         ),
         migrations.AlterField(
-            model_name='products',
-            name='category',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='products', to='Products.category', verbose_name='دسته بندی'),
+            model_name="products",
+            name="category",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="products",
+                to="Products.category",
+                verbose_name="دسته بندی",
+            ),
         ),
     ]
