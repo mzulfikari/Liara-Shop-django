@@ -1,22 +1,28 @@
 // verify resend code
 var minutes = 0;
 var seconds = 60;
+// ابتدا بررسی می‌کنیم که آیا تگ مربوط به تایمر در این صفحه وجود دارد یا خیر
+var verifyCodeElement = document.getElementById("verify-code");
+var blockVerifyCodeElement = document.getElementById("block-verify-code");
 
-var x = setInterval(function () {
-  if (seconds != 0) {
-    seconds--;
-  } else if (seconds == 0) {
-    minutes--;
-    seconds = 59;
-  }
+// اگر هر دو تگ در صفحه پیدا شدند، تازه تایمر شروع به کار می‌کند
+if (verifyCodeElement && blockVerifyCodeElement) {
+  var x = setInterval(function () {
+    if (seconds != 0) {
+      seconds--;
+    } else if (seconds == 0) {
+      minutes--;
+      seconds = 59;
+    }
 
-  document.getElementById("verify-code").innerHTML = "ارسال مجدد کد بعد از " + "ثانیه " + seconds;
-  if (seconds == 0 && minutes == 0) {
-    clearInterval(x);
-    document.getElementById("block-verify-code").innerHTML =
-      "<a href='#'>ارسال مجدد</a>";
-  }
-}, 1000);
+    verifyCodeElement.innerHTML = "ارسال مجدد کد بعد از " + "ثانیه " + seconds;
+    
+    if (seconds == 0 && minutes == 0) {
+      clearInterval(x);
+      blockVerifyCodeElement.innerHTML = "<a href='#'>ارسال مجدد</a>";
+    }
+  }, 1000);
+}
 
 /////////////////////////////////////////////////////////add counter
 
