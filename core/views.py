@@ -1,33 +1,26 @@
 from django.shortcuts import render, redirect
-from .forms import ContactUs
+from .forms import ContactUsForm
 from Products.models import Products
 from django.db import models
-from django.views.generic import TemplateView
-
-# def contact(request):
-#     if request.method == 'POST':
-#         form = ContactUs(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('core:home')
-#     else:
-#         form = ContactUs()
-
-#     context = {
-#         'form': form
-#     }
-#     return render(request, 'core/contact.html', context)
+from .models import *
+from django.views.generic import TemplateView,DetailView,CreateView
+from django.contrib.messages.views import SuccessMessageMixin
 
 
-class About_Me(TemplateView):
-
+class About_Me(TemplateView):    
     template_name = "contact-us/aboute-me.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["about"] = AboutMe.objects.first()
+        return context
 
-
-class Contact_Us(TemplateView):
-
+class ContactUsView(CreateView,SuccessMessageMixin):
     template_name = "contact-us/contact-us.html"
-
+    form_class = ContactUsForm
+    model = ContactUs
+    success_message = "تیکت شما ثبت شد.پس از بررسی تماس خواهیم گرفت"
+    
+    
 
 class Welcome(TemplateView):
     template_name = "welcome.html"

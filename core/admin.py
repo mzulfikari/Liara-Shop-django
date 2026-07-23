@@ -27,7 +27,7 @@ class BannerAdmin(admin.ModelAdmin):
 
 @admin.register(models.ContactUs)
 class ContactUsAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
-    list_display = ["first_name", "last_name", "phone", "get_date_send_jalali"]
+    list_display = ["full_name","phone","get_date_send_jalali"]
 
     def short_message(self, obj):
         if len(obj.message) > 20:
@@ -41,6 +41,6 @@ class ContactUsAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
         return datetime2jalali(obj.date_send).strftime("%a, %d %b  %Y _ %H:%M")
 
 
-@admin.register(models.About_Me)
+@admin.register(models.AboutMe)
 class ContactUsAdmin(admin.ModelAdmin):
     list_display = ["title", "image_about_me"]

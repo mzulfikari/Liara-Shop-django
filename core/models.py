@@ -27,11 +27,10 @@ class SiteSettings(models.Model):
     logo = models.ImageField(
         upload_to="logo/image", null=True, blank=True, verbose_name="لوگو"
     )
-    text_about_us = CKEditor5Field(
+    text_about_us = models.TextField(
         null=True,
         blank=True,
         verbose_name="متن درباره ما بخش فوتر",
-        config_name="default",
     )
     address = models.CharField(
         max_length=350, null=True, blank=True, verbose_name="آدرس"
@@ -42,7 +41,7 @@ class SiteSettings(models.Model):
     phone2 = models.CharField(
         max_length=14, null=True, blank=True, verbose_name="شماره تلفن ثابت"
     )
-    email1 = models.CharField(
+    email = models.CharField(
         max_length=250, null=True, blank=True, verbose_name="ایمیل "
     )
     instagram_link = models.CharField(
@@ -121,8 +120,7 @@ class Banner(models.Model):
 
 
 class ContactUs(models.Model):
-    first_name = models.CharField(max_length=100, verbose_name="نام")
-    last_name = models.CharField(max_length=100, verbose_name="نام خانوادگی")
+    full_name = models.CharField(max_length=100, verbose_name="نام و نام خانوادگی",blank=True,null=True)
     phone = models.CharField(max_length=14, verbose_name="شماره تماس")
     message = models.TextField(verbose_name="متن پیام")
     date_send = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ارسال")
@@ -133,15 +131,13 @@ class ContactUs(models.Model):
         verbose_name_plural = "تماس با ما"
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.full_name}"
 
 
-class About_Me(models.Model):
+class AboutMe(models.Model):
     title = models.CharField(max_length=60, blank=True, null=True, verbose_name="عنوان")
     image = models.ImageField(blank=True, null=True, verbose_name="تصویر")
-    text = CKEditor5Field(
-        null=True, blank=True, verbose_name="متن درباره ما", config_name="default"
-    )
+    text = models.TextField(null=True, blank=True, verbose_name="متن درباره ما")
 
     def __str__(self):
         return self.title
