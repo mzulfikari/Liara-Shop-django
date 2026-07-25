@@ -36,6 +36,8 @@
         </div>
       </div>
       <!-- SECTION DOWN -->
+      <form method="post">
+      {% csrf_token %}
       <div class="grid grid-cols-1 lg:grid-cols-2">
         <div class="px-5 md:pr-24 grid justify-items-start content-start my-10">
           <div class="w-full max-w-full shrink-0 md:w-8/12 md:flex-0">
@@ -45,7 +47,6 @@
                 class="text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-700 outline-none transition-all focus:border-red-300" />
             </div>
           </div>
-
           <div class="w-full max-w-full shrink-0 md:w-8/12 md:flex-0">
             <div class="mb-4">
               <label for="phone" class="inline-block mb-2 ml-1 text-xs opacity-80">شماره تماس:</label>
@@ -61,10 +62,11 @@
             </div>
           </div>
           <span class="flex justify-center items-center opacity-90 my-5">
-            <button
+            <button type="submit"
               class="px-7 py-2 text-center text-white bg-red-500 align-middle border-0 rounded-lg shadow-md text-sm">ارسال</button>
           </span>
         </div>
+      </form>
         <div class="px-4 lg:px-10 my-10">
           <div class="flex items-center">
             <span class="inline-block mb-2 ml-1 opacity-80 font-semibold">
@@ -91,7 +93,6 @@
             </span>
           </div>
           <div>
-
           </div>
         </div>
       </div>
