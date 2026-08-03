@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "Social.apps.SocialConfig",
     "core.apps.CoreConfig",
     "Dashbord.apps.DashbordConfig",
+    "Cart.apps.CartConfig",
     # Persian_app
     "admin_persian",
     # libray
