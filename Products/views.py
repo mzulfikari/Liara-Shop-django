@@ -17,8 +17,9 @@ class ProductDetails(DetailView):
         context = super().get_context_data(**kwargs)
         product = self.get_object()
         context["colors"] = product.color.all()
+        context["related_products"] = (Products.objects.filter(category=product.category,status=ProductStatusType.publish.value).exclude(pk=product.pk)[:8])
         return context
-
+    
     def post(self, request, pk):
         if request.user.is_authenticated:
             self.object = self.get_object()

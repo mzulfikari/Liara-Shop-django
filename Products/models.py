@@ -138,6 +138,8 @@ class Products(models.Model):
         decimal_places=0,
     )
     caption = models.TextField(verbose_name="درباره محصول")
+    specialized_review = models.TextField(verbose_name="بررسی تخصصی",blank=True,null=True)
+    specialized_review_image = models.ImageField(verbose_name="بررسی تخصصی عکس برای قسمت", upload_to="product/image",blank=True,null=True)
     category = models.ForeignKey(
         Category,
         on_delete=models.SET_NULL,
