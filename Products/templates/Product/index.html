@@ -133,7 +133,7 @@
       </div>
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-x-4 gap-y-6 md:gap-x-8 2xl:gap-x-10 px-3 md:px-8 lg:px-28">
         {% for Category in Categories %}
-        <a href="{% url 'Product:Product_list' %}" class="flex justify-center items-center flex-col gap-y-3 hover:scale-105 transition">
+        <a href="?category_id={{ category.id }}" class="flex justify-center items-center flex-col gap-y-3 hover:scale-105 transition">
           <img src="{{ Category.image.url }}" width="160px" height="200px" style="border-radius: 50%" alt="{{ Category.title }}">
           <div class="text-sm opacity-90">{{ Category.title }}</div>
         </a>

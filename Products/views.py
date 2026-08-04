@@ -5,6 +5,7 @@ from django.views.generic import DetailView, ListView
 from Products.models import Products, Comment, Color, ProductStatusType, Category
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render, redirect
+from django.core.exceptions import FieldError
 
 
 class ProductDetails(DetailView):
@@ -19,19 +20,11 @@ class ProductDetails(DetailView):
         return context
 
     def post(self, request, pk):
-
         if request.user.is_authenticated:
             self.object = self.get_object()
             parent_id = request.POST.get("parent_id")
             body = request.POST.get("body")
-
-            if body:
-                Comment.objects.create(
-                    body=body,
-                    products=self.object,
-                    user=request.user,
-                    parent_id=parent_id,
-                )
+            if body:Comment.objects.create(body=body,products=self.object, user=request.user,parent_id=parent_id,)
             else:
                 messages.error(request, "متن نظر نمی‌تواند خالی باشد.")
             return redirect(request.path)
@@ -43,12 +36,28 @@ class Product_View(ListView):
     context_object_name = "Products"
     queryset = Products.objects.filter(status=ProductStatusType.publish.value)
     paginate_by = 8
+    
+    def get_queryset(self):
+        queryset = Products.objects.filter(
+            status=ProductStatusType.publish.value)
+        if search_q:= self.request.GET.get("q"):
+            queryset = queryset.filter(title__icontains=search_q)
+        if category_id:= self.request.GET.get("category_id"):
+          queryset = queryset.filter(category__id=category_id)
+        if min_price:= self.request.GET.get("min_price"):
+            queryset = queryset.filter(price__gte=min_price)
+        if max_price:= self.request.GET.get("max_price"):
+            queryset = queryset.filter(price__lte=max_price)
+        if order_by:= self.request.GET.get("order_by"):
+            try:
+             queryset = queryset.order_by(order_by)
+            except FieldError:
+                pass
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["discount_products"] = Products.objects.filter(
-            status=ProductStatusType.publish.value, Discounts=True
-        )
+        context["discount_products"] = Products.objects.filter(status=ProductStatusType.publish.value, Discounts=True )
         return context
 
 
