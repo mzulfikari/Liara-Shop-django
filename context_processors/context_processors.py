@@ -1,6 +1,8 @@
 from Products.models import Category, Products,Brand
 from django.db.models import Prefetch
 from core.models import SiteSettings, Banner
+from django.views.generic import View,TemplateView
+from Cart.cart import CartSession
 
 
 def Categories(request):
@@ -56,4 +58,12 @@ def Banners(request):
 def brands(request):
     return {
         "brands": Brand.objects.all()
+    }
+    
+def cart(request):
+    cart = CartSession(request.session)
+    return {
+        "cart_items": cart.get_cart_items(),
+        "cart_total_quantity": cart.get_total_quantity(),
+        "cart_total_payment": cart.get_total_payment_amount(),
     }

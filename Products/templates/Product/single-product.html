@@ -3,6 +3,7 @@
 {% load filters %}
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -95,7 +96,7 @@
             <div>
               <span class="flex items-center pr-20 pb-2">
                 <img onclick="showAlertAddTocomparison()" class="w-6 ml-2 cursor-pointer"
-                  src="./assets/image/comparison.png" alt="" title="مقایسه">
+                  src="{% static 'image/comparison.png' %}" alt="" title="مقایسه">
                 <svg onclick="showAlertAddToFavorit()"
                   class="h-7 w-7 text-red-500 hover:text-red-600 fill-current transition cursor-pointer inline"
                   xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -202,66 +203,21 @@
                   </div>
                   {% endfor %}
                 </div>
-
                 <form action="{% url 'Cart:session-add-product' %}" method="post">
                   {% csrf_token %}
                   <div class="flex items-center">
-
-                    <div class="opacity-70 text-sm mb-1">
-                      رنگ بندی:
-                    </div>
                     <div class="flex flex-wrap">
-
                       <div class="flex items-center gap-x-2">
                         <div class="flex w-max">
                           <div class="inline-flex items-center">
-                            <label class="relative flex cursor-pointer items-center rounded-full p-3"
-                              for="color-{{ color.id }}">
-                              <input id="color-{{ color.id }}" name="color" value="{{ color.id }}" type="radio"
-                                class="before:content[''] peer relative h-7 w-7 cursor-pointer appearance-none rounded-full border border-blue-gray-200 bg-pink-500 text-pink-500 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity hover:before:opacity-10"
-                                checked />
-                              <div
-                                class="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-pink-500 opacity-0 transition-opacity peer-checked:opacity-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 16 16"
-                                  fill="currentColor">
-                                  <circle data-name="ellipse" cx="8" cy="8" r="8"></circle>
-                                </svg>
-                              </div>
-                            </label>
-                          </div>
-
-                          <div class="inline-flex items-center">
-                            <label class="relative flex cursor-pointer items-center rounded-full p-3" for="red">
-                              <input id="red" name="color" type="radio"
-                                class="before:content[''] peer relative h-7 w-7 cursor-pointer appearance-none rounded-full border border-blue-gray-200 bg-red-500 text-red-500 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-red-500 checked:before:bg-red-500 hover:before:opacity-10" />
-                              <div
-                                class="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-red-500 opacity-0 transition-opacity peer-checked:opacity-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 16 16"
-                                  fill="currentColor">
-                                  <circle data-name="ellipse" cx="8" cy="8" r="8"></circle>
-                                </svg>
-                              </div>
-                            </label>
                           </div>
                           <div class="inline-flex items-center">
-                            <label class="relative flex cursor-pointer items-center rounded-full p-3" for="green">
-                              <input id="green" name="color" type="radio"
-                                class="before:content[''] peer relative h-7 w-7 cursor-pointer appearance-none rounded-full border border-blue-gray-200 bg-blue-500 text-blue-500 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-blue-500 checked:before:bg-blue-500 hover:before:opacity-10" />
-                              <div
-                                class="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-blue-500 opacity-0 transition-opacity peer-checked:opacity-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 16 16"
-                                  fill="currentColor">
-                                  <circle data-name="ellipse" cx="8" cy="8" r="8"></circle>
-                                </svg>
-                              </div>
-                            </label>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div>
-
                     <div class="flex flex-col gap-y-2 text-xs">
                       <div class=" flex items-center">
                         <div class="opacity-80">
@@ -340,7 +296,7 @@
                   </div>
                   <span class="flex justify-center items-center opacity-90">
                     {% if  products.stock_count %}
-                    <button
+                    <button onclick="addToCart('{{object.id}}')"
                       class="px-7 py-2 text-center text-white bg-red-500 align-middle border-0 rounded-lg shadow-md text-sm">افزودن
                       به سبد خرید</button>
                   </span>
@@ -434,10 +390,11 @@
               </div>
               <div class="md:flex gap-3">
                 <p class="text-gray-500 text-sm leading-7 mt-3">
-                {{ products.specialized_review }}
+                  {{ products.specialized_review }}
                 </p>
                 {% if products.specialized_review_image %}
-                <img class="max-w-[320px] w-full mx-auto rounded-3xl" src=" {{ products.specialized_review_image.url }}" alt="">
+                <img class="max-w-[320px] w-full mx-auto rounded-3xl" src=" {{ products.specialized_review_image.url }}"
+                  alt="">
                 {% endif %}
               </div>
             </div>
@@ -590,7 +547,7 @@
                     <div class="bg-gray-100 rounded-xl pl-2 pr-5 sm:pr-8 py-3">
                       <div class="flex items-center">
                         <div>
-                          <img class="w-10" src="./assets/image/userNotImage.png" alt="">
+                          <img class="w-10" src="{% static 'image/userNotImage.png' %}" alt="">
                         </div>
                         <div class="text-sm opacity-60 pr-1">
                           پاسخ داده شده توسط امیررضا کریمی
@@ -611,7 +568,7 @@
                   <div class="bg-gray-50 rounded-xl px-5 py-3 my-2">
                     <div class="flex items-center">
                       <div>
-                        <img class="w-10" src="./assets/image/userNotImage.png" alt="">
+                        <img class="w-10" src="{% static 'image/userNotImage.png' %}" alt="">
                       </div>
                       <div class="text-sm opacity-60 pr-1">
                         نوشته شده توسط امیررضا کریمی
@@ -665,7 +622,7 @@
             <a href="#">
               <div
                 class="transition px-4 py-2 rounded-xl flex justify-center items-center text-red-500 hover:text-red-600">
-                دیدن همه<img class="w-4" src="./assets/image/arrow-left.png" alt=""></div>
+                دیدن همه<img class="w-4" src="{% static 'image/arrow-left.png' %}" alt=""></div>
             </a>
           </div>
           <!-- SLIDER -->
@@ -676,8 +633,7 @@
                 <span class="card swiper-slide my-2 p-2 md:p-3 ">
                   <div class="image-box mb-6 ">
                     <a href="{% url 'Product:Product_details' slug=related_product.slug %}">
-                      <img class="hover:scale-105 transition rounded-3xl w-full mx-auto"
-                        src="{{related_product.image.url}}" alt="" />
+                      <img class="hover:scale-105 transition rounded-3xl w-full mx-auto"  src="{{related_product.image.url}}" alt="" />
                     </a>
                   </div>
                   <div class="space-y-3 text-center">
@@ -699,6 +655,26 @@
   <!-- FOOTER -->
   {% include 'includes/footer.html' %}
 </body>
+<script>
+  function addToCart(product_id) {
+    console.log(product_id)
+    $.ajax({
+      url: "{% url 'Cart:session-add-product' %}",
+      method: 'POST',
+      data: {
+        product_id: product_id,
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+      },
+      success: function(response) {
+        $("#total-cart-item-count").html(response.total_quantity)
+        console.log(response);
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(errorThrown)
+      }
+    });
+  }
+</script>
 <!--DROPDOWNS FOR NAVBAR-->
 <script src="https://unpkg.com/@themesberg/flowbite@1.1.1/dist/flowbite.bundle.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer>

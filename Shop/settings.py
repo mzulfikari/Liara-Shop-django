@@ -86,6 +86,7 @@ TEMPLATES = [
                 "context_processors.context_processors.site_settings",
                 "context_processors.context_processors.Banners",
                 "context_processors.context_processors.brands",
+                "context_processors.context_processors.cart",
             ],
         },
     },
