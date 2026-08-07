@@ -390,7 +390,15 @@
               </div>
               <div class="md:flex gap-3">
                 <p class="text-gray-500 text-sm leading-7 mt-3">
-                  {{ products.specialized_review }}
+                 {% if product.expert_review %}
+                  <div class="text-gray-500 text-sm leading-7 mt-3">
+                      {{ product.expert_review }}
+                  </div>
+                   {% else %}
+                  <div class="text-gray-500 text-sm leading-7 mt-3">
+                      محتوایی برای بررسی تخصصی موجود نیست.
+                  </div>
+                   {% endif %}
                 </p>
                 {% if products.specialized_review_image %}
                 <img class="max-w-[320px] w-full mx-auto rounded-3xl" src=" {{ products.specialized_review_image.url }}"
