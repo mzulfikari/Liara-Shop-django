@@ -6,7 +6,7 @@ from django.utils.text import slugify
 from django.utils.translation import gettext as _
 from colorfield.fields import ColorField
 from django.utils.text import slugify
-from decimal import Decimal 
+from decimal import Decimal
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 
@@ -95,7 +95,7 @@ class Brand(models.Model):
         upload_to="product/image/brand",
         blank=True,
         null=True,
-        verbose_name=" بارگذاری تصویر"
+        verbose_name=" بارگذاری تصویر",
     )
 
     def __str__(self):
@@ -140,8 +140,15 @@ class Products(models.Model):
         decimal_places=0,
     )
     caption = models.TextField(verbose_name="درباره محصول")
-    specialized_review = models.TextField(verbose_name="بررسی تخصصی",blank=True,null=True)
-    specialized_review_image = models.ImageField(verbose_name="بررسی تخصصی عکس برای قسمت", upload_to="product/image",blank=True,null=True)
+    specialized_review = models.TextField(
+        verbose_name="بررسی تخصصی", blank=True, null=True
+    )
+    specialized_review_image = models.ImageField(
+        verbose_name="بررسی تخصصی عکس برای قسمت",
+        upload_to="product/image",
+        blank=True,
+        null=True,
+    )
     category = models.ForeignKey(
         Category,
         on_delete=models.SET_NULL,
@@ -182,7 +189,9 @@ class Products(models.Model):
         verbose_name=" نمایش در پرتخفیف ترین ها",
         default=False,
     )
-    discount_percent = models.IntegerField(default=0,validators=[MinValueValidator(0),MaxValueValidator(100)])
+    discount_percent = models.IntegerField(
+        default=0, validators=[MinValueValidator(0), MaxValueValidator(100)]
+    )
 
     def save(
         self, force_insert=False, force_update=False, using=None, update_fields=None
@@ -203,24 +212,23 @@ class Products(models.Model):
         return format_html('<h3 style="color: red">تصویر ندارد</h3>')
 
     show_image.short_description = " تصاویر"
-    
+
     def get_price(self):
-        discount_amount = self.price *  Decimal(self.discount_percent / 100)
+        discount_amount = self.price * Decimal(self.discount_percent / 100)
         discount_amount = self.price - discount_amount
-        return round (discount_amount)
-    
-    
+        return round(discount_amount)
+
     def get_show_price(self):
-        discount_amount = self.price *  Decimal(self.discount_percent / 100)
+        discount_amount = self.price * Decimal(self.discount_percent / 100)
         discount_amount = self.price - discount_amount
-        return '{:,}'.format(round (discount_amount))
-    
+        return "{:,}".format(round(discount_amount))
+
     def get_show_raw_price(self):
-        return '{:,}'.format(round (self.price))
-    
+        return "{:,}".format(round(self.price))
+
     def is_discounted(self):
         return self.discount_percent != 0
-    
+
     def is_published(self):
         return self.status == ProductStatusType.publish.value
 

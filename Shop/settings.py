@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     "core.apps.CoreConfig",
     "Dashbord.apps.DashbordConfig",
     "Cart.apps.CartConfig",
+    "order.apps.OrderConfig",
+    "pyment.apps.PymentConfig",
     # Persian_app
     "admin_persian",
     # libray

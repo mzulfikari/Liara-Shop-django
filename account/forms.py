@@ -58,7 +58,7 @@ class LoginForm(forms.Form):
         widget=forms.PasswordInput(
             attrs={
                 "class": "w-full drop-shadow-lg outline-none rounded-2xl py-2 text-center",
-                 "placeholder": "رمز عبور",
+                "placeholder": "رمز عبور",
             }
         )
     )

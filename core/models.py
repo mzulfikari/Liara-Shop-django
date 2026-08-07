@@ -120,7 +120,9 @@ class Banner(models.Model):
 
 
 class ContactUs(models.Model):
-    full_name = models.CharField(max_length=100, verbose_name="نام و نام خانوادگی",blank=True,null=True)
+    full_name = models.CharField(
+        max_length=100, verbose_name="نام و نام خانوادگی", blank=True, null=True
+    )
     phone = models.CharField(max_length=14, verbose_name="شماره تماس")
     message = models.TextField(verbose_name="متن پیام")
     date_send = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ارسال")

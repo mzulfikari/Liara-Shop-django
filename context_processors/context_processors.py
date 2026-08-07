@@ -1,7 +1,7 @@
-from Products.models import Category, Products,Brand
+from Products.models import Category, Products, Brand
 from django.db.models import Prefetch
 from core.models import SiteSettings, Banner
-from django.views.generic import View,TemplateView
+from django.views.generic import View, TemplateView
 from Cart.cart import CartSession
 
 
@@ -55,11 +55,11 @@ def Banners(request):
         ).first(),
     }
 
+
 def brands(request):
-    return {
-        "brands": Brand.objects.all()
-    }
-    
+    return {"brands": Brand.objects.all()}
+
+
 def cart(request):
     cart = CartSession(request.session)
     return {

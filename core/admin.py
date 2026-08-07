@@ -27,7 +27,7 @@ class BannerAdmin(admin.ModelAdmin):
 
 @admin.register(models.ContactUs)
 class ContactUsAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
-    list_display = ["full_name","phone","get_date_send_jalali"]
+    list_display = ["full_name", "phone", "get_date_send_jalali"]
 
     def short_message(self, obj):
         if len(obj.message) > 20:
