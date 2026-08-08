@@ -14,6 +14,9 @@ from pyment.zarinpal_client import ZarinPalSandbox
 from pyment.models import PaymentModel
 from Dashbord.models import Address
 
+class OrderView(TemplateView):
+    
+    template_name = 'checkout.html'
 
 class OrderCheckOutView(LoginRequiredMixin, FormView):
     template_name = "order/checkout.html"

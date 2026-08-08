@@ -1,18 +1,21 @@
 from django import forms
-from order.models import UserAddressModel, CouponModel
+from order.models import CouponModel
 from django.utils import timezone
-
+from Dashbord.models import Address
 
 class CheckOutForm(forms.Form):
+
     address_id = forms.IntegerField(
         required=True,
         error_messages={
-            "required": "لطفا یک آدرس را انتخاب کنید",
+            "required": "لطفاً یک آدرس را انتخاب کنید",
             "invalid": "آدرس معتبر نیست",
         },
     )
 
-    coupon = forms.CharField(required=False)
+    coupon = forms.CharField(
+        required=False,
+    )
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request", None)
@@ -21,10 +24,18 @@ class CheckOutForm(forms.Form):
     def clean_address_id(self):
         address_id = self.cleaned_data.get("address_id")
         user = self.request.user
+
         try:
-            address = UserAddressModel.objects.get(id=address_id, user=user)
-        except UserAddressModel.DoesNotExist:
-            raise forms.ValidationError("لطفا یک آدرس را انتخاب کنید")
+            address = Address.objects.get(
+                id=address_id,
+                user=user,
+            )
+
+        except Address.DoesNotExist:
+            raise forms.ValidationError(
+                "لطفاً یک آدرس را انتخاب کنید"
+            )
+
         return address
 
     def clean_coupon(self):

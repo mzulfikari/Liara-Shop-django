@@ -1,0 +1,160 @@
+{% load static %}
+{% load filters %}
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سبد خرید</title>
+
+  <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/font.css' %}">
+  
+  <style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  </style>
+
+</head>
+  {% include 'includes/head.html' %}
+    <!-- OPACITY SCREEN FOR SEARCH INPUT FOCUS -->
+    <div class="absolute w-full h-screen bg-gray-200 opacity-40 z-40 hidden" id="opacitiScreen" onclick="closeScreen()">
+    </div>
+  </div>
+  <!-- MAIN -->
+    {% if not cart_items %}
+
+  <div class="max-w-[1440px] mx-auto px-3">
+    <div class="bg-white shadow-xl my-5 lg:my-10 rounded-xl md:rounded-2xl p-3 md:p-5">
+      <img class="mx-auto max-w-md w-full" src="{% static 'image/cartEmpty/1.jpg' %} " alt="">
+      <div class="opacity-90 text-center my-7 text-base md:text-lg">
+        سبد خرید شما در حال حاضر خالی است!
+      </div>
+      <div class="flex justify-center items-center mb-5">
+        {% comment %} <a class="border-b-2 border-red-500 hover:text-red-600 transition text-sm" href="./search.html">
+          محصولات تخفیف دار
+        </a> {% endcomment %}
+        <img class="w-4" src="{% static 'image/arrow-left.png' %}" alt="">
+      </div>
+      <a href="{% url 'Product:Product_view' %}" class="flex justify-center items-center opacity-90">
+        <button class="px-7 py-2 text-center text-white bg-red-500 hover:bg-red-600 hover:shadow-lg hover:shadow-red-400 transition align-middle rounded-lg shadow-md text-xs">صفحه اصلی</button>
+      </a>
+    </div>
+  </div>
+
+  {% else %}
+  <div class="max-w-[1440px] mx-auto px-3">
+    <div class="bg-white shadow-xl my-5 lg:my-10 rounded-xl md:rounded-2xl p-3 md:p-5">
+      <div class="relative overflow-x-auto rounded-2xl border">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+          <thead class="hidden md:table-header-group text-xs text-gray-700 bg-gray-50">
+            <tr>
+              <th scope="col" class="px-16 py-3">
+                <span class="sr-only">تصویر</span>
+              </th>
+              <th scope="col" class="md:pr-6 py-3">
+                نام محصول
+              </th>
+              <th scope="col" class="pr-10 py-3">
+                تعداد
+              </th>
+              <th scope="col" class="px-6 py-3">
+                قیمت
+              </th>
+              <th scope="col" class="px-6 py-3">
+                دستورات
+              </th>
+            </tr>
+          </thead>
+          <tbody class="grid grid-cols-1 sm:grid-cols-2 md:contents gap-5">
+            {% for item in cart_items %}
+            <tr class="bg-white border-b hover:bg-gray-50 grid grid-cols-1 justify-items-center md:table-row">
+              <td class="p-4">
+                <img src="{{ item.product_obj.image.url }}" class="w-48 md:w-32 max-w-full max-h-full rounded-lg" alt="">
+              </td>
+              <td class="md:pr-6 py-4 text-sm opacity-90 text-gray-900">
+                {{ item.product_obj.title }}
+              </td>
+              <td class="px-6 py-4">
+                <div class="quantity flex items-center">
+                  <input class="w-12 h-8 mx-2 text-center border focus:outline-none rounded-lg" type="number" min="1" step="1" value="1" readonly>
+                </div>
+              </td>
+              <td class="px-6 py-4 text-sm opacity-90 text-gray-900">
+                {{ item.total_price|rial_price  }}  تومان
+              </td>
+              <td class="px-6 py-4">
+                <a href="#" class=" text-red-600">حذف</a>
+              </td>
+            </tr>
+          {% endfor %}
+      {% endif %}
+          </tbody>
+        </table>
+      </div>
+
+
+      <div class="border shadow-xl rounded-2xl mx-auto max-w-xl mt-7 flex flex-col gap-y-5 py-5 px-5 md:px-20">
+        <div class="flex justify-between center:""">
+          <div>
+           هزینه ارسال به صورت جداگانه به صورت پیام ارسال می شود
+          </div>
+          <div class="flex gap-x-1">   
+          </div>
+        </div>
+        <div class="flex justify-between">
+          <div class="text-red-600">
+            مجموع نهایی:
+          </div>
+          <div class="flex gap-x-1">
+            <div>
+            {{get_total_payment_price|rial_price }}
+            </div>
+            <div>
+              تومان
+            </div>
+          </div>
+        </div>
+      </div>
+      <a href="./checkout.html" class="flex justify-center items-center opacity-90 my-5">
+        <button class="px-7 py-2 text-center text-white bg-red-500 align-middle border-0 rounded-lg shadow-md text-sm">تایید و پرداخت</button>
+      </a>
+    </div>
+  </div>
+  <!-- FOOTER -->
+  {% include 'includes/footer.html' %}
+  <!--DROPDOWNS FOR NAVBAR-->
+  <script src="https://unpkg.com/@themesberg/flowbite@1.1.1/dist/flowbite.bundle.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer>
+  </script>
+  <!--MOBILE NAVBAR-->
+  <script src="{% static 'js/navbar.js' %}"></script>
+  <!-- SHOW MODAL SEARCH -->
+  <script src="{% static 'js/searchBox.js' %}"></script>
+  <!-- INPUTS ADD NUMBER -->
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+  <script>
+        function changeProductQuantity(product_id,quantity){
+        $.ajax({
+            url:"{% url 'Cart:session-update-product' %}",
+            method: 'POST',
+            data:{
+                product_id:product_id,
+                quantity:quantity,
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+        success: function(response){
+            window.location.reload()
+        },
+        error: function(jqXHR,textStatus,errorThrown){
+            console.log(errorThrown)
+        }
+    });
+    }
+</script>

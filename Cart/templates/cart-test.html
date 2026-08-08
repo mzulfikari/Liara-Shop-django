@@ -22,7 +22,7 @@
 </head>
 <body class="bg-gray-50">
   <!-- NAVBAR -->
-  <div>
+
     <!-- TOP -->
     {% include 'includes/head.html' %}
     <!-- OPACITY SCREEN FOR SEARCH INPUT FOCUS -->
@@ -34,7 +34,7 @@
   </div>
   <!-- MAIN -->
 
-   {% if not cart %}
+   {% if not cart_items %}
 
   <div class="max-w-[1440px] mx-auto px-3">
     <div class="bg-white shadow-xl my-5 lg:my-10 rounded-xl md:rounded-2xl p-3 md:p-5">
@@ -83,36 +83,77 @@
 
 
 
-            {% for item in cart %}
-            <tr class="bg-white border-b hover:bg-gray-50 grid grid-cols-1 justify-items-center md:table-row">
-              <td class="p-4">
-                {% if item.productimage %}
-                <img src="{{ item.product.image.url }}" class="w-48 md:w-32 max-w-full max-h-full rounded-lg" alt="">
-                {% else %}
-                <img src="{% static 'image/logo.png' %}" class="w-48 md:w-32 max-w-full max-h-full rounded-lg" alt="">
-              </td>
-              {% endif %}
+           {% for item in cart_items %}
 
-              <td class="md:pr-6 py-4 text-sm opacity-90 text-gray-900">
-              {{ item.product.title }}
-              </td>
-              <td class="px-6 py-4">
-                <div class="quantity flex items-center">
-                  <input class="w-12 h-8 mx-2 text-center border focus:outline-none rounded-lg" type="number" min="1" step="1" value="1" readonly>
-                </div>
-              </td>
-              <td class="px-6 py-4 text-sm opacity-90 text-gray-900">
-                {{ item.price }}تومان
-              </td>
-              <td class="px-6 py-4">
-                <a href="#" class=" text-red-600">حذف</a>
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-   {% endif %}
+<tr class="bg-white border-b hover:bg-gray-50 grid grid-cols-1 justify-items-center md:table-row">
+
+    <td class="p-4">
+
+        {% if item.product_obj.image %}
+
+            <img
+                src="{{ item.product_obj.image.url }}"
+                class="w-48 md:w-32 max-w-full max-h-full rounded-lg"
+                alt="{{ item.product_obj.title }}"
+            >
+
+        {% else %}
+
+            <img
+                src="{% static 'image/logo.png' %}"
+                class="w-48 md:w-32 max-w-full max-h-full rounded-lg"
+                alt="{{ item.product_obj.title }}"
+            >
+
+        {% endif %}
+
+    </td>
+
+
+    <td class="md:pr-6 py-4 text-sm opacity-90 text-gray-900">
+
+        {{ item.product_obj.title }}
+
+    </td>
+
+
+    <td class="px-6 py-4">
+
+        <div class="quantity flex items-center">
+
+            <input
+                class="w-12 h-8 mx-2 text-center border focus:outline-none rounded-lg"
+                type="number"
+                min="1"
+                step="1"
+                value="{{ item.quantity }}"
+                readonly
+            >
+
+        </div>
+
+    </td>
+
+
+    <td class="px-6 py-4 text-sm opacity-90 text-gray-900">
+
+        {{ item.total_price }} تومان
+
+    </td>
+
+
+    <td class="px-6 py-4">
+
+        <a href="#" class="text-red-600">
+            حذف
+        </a>
+
+    </td>
+
+</tr>
+
+{% endfor %}
+{% endif %}
 
       <div class="border shadow-xl rounded-2xl mx-auto max-w-xl mt-7 flex flex-col gap-y-5 py-5 px-5 md:px-20">
         <div class="flex justify-between">

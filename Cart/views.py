@@ -49,13 +49,16 @@ class SessionRemoveProductView(View):
 
 class CartSummaryView(TemplateView):
 
-    template_name = "cart/cart-summary.html"
+    template_name = "cart.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         cart = CartSession(self.request.session)
+        print("SESSION CART:", self.request.session.get("cart"))
         cart_items = cart.get_cart_items()
+        print("CART ITEMS:", cart_items)
         context["cart_items"] = cart_items
         context["total_quantity"] = cart.get_total_quantity()
         context["get_total_payment_price"] = cart.get_total_payment_amount()
         return context
+
