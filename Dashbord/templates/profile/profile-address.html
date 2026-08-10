@@ -192,34 +192,54 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        document.querySelectorAll(".delete-address-form").forEach(form => {
-            form.addEventListener("submit", function(e) {
-                e.preventDefault();
-                Swal.fire({
-                    title: 'حذف آدرس',
-                    text: 'آیا از حذف این آدرس مطمئن هستید؟',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'بله، حذف شود',
-                    cancelButtonText: 'انصراف',
-                    confirmButtonColor: '#e74c3c',
-                    cancelButtonColor: '#46A9AE',
-                    background: '#ffffff',
-                    showClass: {
-                        popup: 'animate__animated animate__fadeInDown'
-                    },
-                    hideClass: {
-                        popup: 'animate__animated animate__fadeOutUp'
-                    }
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        form.submit();
-                    }
-                });
-            });
+  document.addEventListener('DOMContentLoaded', function () {
+
+    const forms = document.querySelectorAll('.delete-address-form');
+
+    if (!forms.length) return;
+
+    forms.forEach(function (form) {
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        Swal.fire({
+          title: 'حذف آدرس؟',
+          text: 'آیا مطمئن هستید که می‌خواهید این آدرس را حذف کنید؟',
+          icon: 'warning',
+
+          showCancelButton: true,
+          confirmButtonText: 'بله، حذف شود',
+          cancelButtonText: 'انصراف',
+
+          reverseButtons: true,
+          focusCancel: true,
+          buttonsStyling: false,
+
+          customClass: {
+            popup: 'rounded-3xl',
+            title: 'text-lg font-bold text-gray-800',
+            htmlContainer: 'text-sm text-gray-600',
+
+            confirmButton:
+              'bg-red-500 hover:bg-red-600 text-white rounded-xl px-5 py-2 mx-1 transition',
+
+            cancelButton:
+              'bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl px-5 py-2 mx-1 transition'
+          }
+        }).then(function (result) {
+
+          if (result.isConfirmed) {
+            form.submit();
+          }
+
         });
+
+      });
+
     });
+
+  });
 </script>
 
 <!-- Ajax-->
