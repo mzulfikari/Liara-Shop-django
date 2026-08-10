@@ -19,7 +19,7 @@ class OrderView(TemplateView):
     template_name = 'checkout.html'
 
 class OrderCheckOutView(LoginRequiredMixin, FormView):
-    template_name = "order/checkout.html"
+    template_name = "checkout.html"
     form_class = CheckOutForm
     success_url = reverse_lazy("order:completed")
 

@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,50 +22,118 @@
           کد تخفیف دارید؟ وارد کنید:
         </div>
         <div>
-          <input class="border border-gray-400 outline-none focus:border-red-300 rounded-lg p-1" type="text">
+          <input name="coupon" class="border border-gray-400 outline-none focus:border-red-300 rounded-lg p-1" type="text" id="coupon-input"
+          placeholder="کد تخفیف شما">
         </div>
         <div>
-          <button class="bg-red-600 text-white px-3 py-1 rounded-lg shadow-md">
+          <button type="button" class="bg-red-600 text-white px-3 py-1 rounded-lg shadow-md" onclick="validateCoupon()">
             تایید
           </button>
         </div>
       </div>
       <div>
-        <div class="text-lg md:text-xl opacity-70 mb-3">
-          جزئیات صورت حساب
+        <div class="mb-4 md:col-span-2">
+
+          <label for="address_id" class="inline-block mb-2 ml-1 font-semibold text-xs text-slate-700">
+            آدرس های من:
+          </label>
+
+          {% if addresses %}
+
+          <!-- Address Select -->
+          <select form="checkout" name="address_id" id="address_id" required dir="rtl" class="block w-full sm:w-[420px]
+             h-11
+             rounded-lg
+             border border-gray-400
+             bg-white
+             px-3
+             text-sm
+             text-gray-700
+             outline-none
+             focus:border-red-300
+             focus:ring-1
+             focus:ring-red-200
+             transition">
+
+            <option value="" selected disabled>
+              آدرس را انتخاب کنید
+            </option>
+
+            {% for address in addresses %}
+
+            <option value="{{ address.id }}">
+              {{ address.title }}، {{ address.city }} - {{ address.full_address|truncatechars:45 }}
+            </option>
+
+            {% endfor %}
+
+          </select>
+
+          <!-- Add New Address -->
+          <div class="mt-2">
+            <a href="{% url 'Profile:Address' %}"
+              class="inline-flex items-center text-xs text-red-500 hover:text-red-600 transition">
+
+              <span class="ml-1 text-base">+</span>
+              افزودن آدرس جدید
+
+            </a>
+          </div>
+
+          {% else %}
+
+          <!-- No Address -->
+          <div class="w-full sm:w-[420px]
+             rounded-xl
+             border border-red-200
+             bg-red-50
+             px-4 py-4">
+
+            <div class="flex items-center justify-between gap-4">
+
+              <div class="flex items-center">
+
+                <div class="flex items-center justify-center
+                   w-9 h-9
+                   rounded-full
+                   bg-white
+                   text-red-500
+                   ml-3">
+
+                </div>
+
+                <div>
+                  <p class="text-lg md:text-xl opacity-70 mb-3 mt-2">
+                    آدرسی ثبت نشده است
+                  </p>
+
+                  <p class="text-lg md:text-xl opacity-70 mb-3 mt-1">
+                    برای ادامه خرید، ابتدا یک آدرس ثبت کنید.
+                  </p>
+                </div>
+
+              </div>
+
+              <a href="{% url 'Profile:Address' %}" class="shrink-0
+                 bg-red-500
+                 hover:bg-red-600
+                 text-white
+                 text-xs
+                 rounded-lg
+                 px-4 py-2
+                 transition">
+
+                افزودن آدرس
+
+              </a>
+
+            </div>
+
+          </div>
+
+          {% endif %}
+
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 px-5 md:px-20">
-          <div class="mb-4">
-            <label for="username" class="inline-block mb-2 ml-1 font-semibold text-xs text-slate-700">نام تحویل
-              گیرنده:</label>
-            <input type="text"
-              class="text-sm block w-full rounded-lg border border-gray-400 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300" />
-          </div>
-          <div class="mb-4">
-            <label for="username" class="inline-block mb-2 ml-1 font-semibold text-xs text-slate-700">شماره
-              موبایل:</label>
-            <input type="text"
-              class="text-sm block w-full rounded-lg border border-gray-400 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300" />
-          </div>
-          <div class="mb-4">
-            <label for="username" class="inline-block mb-2 ml-1 font-semibold text-xs text-slate-700">کدپستی:</label>
-            <input type="text"
-              class="text-sm block w-full rounded-lg border border-gray-400 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300" />
-          </div>
-          <div class="mb-4">
-            <label for="username" class="inline-block mb-2 ml-1 font-semibold text-xs text-slate-700">آدرس:</label>
-            <input type="text"
-              class="text-sm block w-full rounded-lg border border-gray-400 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300" />
-          </div>
-          <div class="mb-4">
-            <label for="mailTicket" class="inline-block mb-2 ml-1 font-semibold text-xs text-slate-700">توضیحات
-              اضافه:</label>
-            <textarea cols="30" rows="5"
-              class="text-sm block w-full rounded-lg border border-gray-400 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300"></textarea>
-          </div>
-        </div>
-      </div>
-      <div>
         <div class="text-lg md:text-xl opacity-70 mb-3 mt-5">
           جزئیات محصولات
         </div>
@@ -235,5 +304,49 @@
   <script src="{% static 'js/navbar.js' %}"></script>
   <!-- SHOW MODAL SEARCH -->
   <script src="{% static 'js/searchBox.js' %}"></script>
+
+<script>
+    function applyDiscount(total_price,total_tax){
+        $("#total-price").html(total_price)
+        $("#total-tax").html(total_tax)
+        formatPriceInToman(document.getElementById("total_price"))
+        formatPriceInToman(document.getElementById("total_tax"))
+    }
+
+    function validateCoupon(){
+        $.ajax({
+            url:"{% url 'order:validate-coupon' %}",
+            method: 'POST',
+            data:{
+                code: $('#coupon-input').val(),
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            success: function (response) {
+                console.log("success",response);
+                Toastify({
+                text: response.message,
+                className: `info`,
+                style: {
+                background: "blue",
+                }
+                }).showToast();
+                applyDiscount(response.total_price,response.total_tax)
+            },
+              error: function (jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+                Toastify({
+                    text:jqXHR.responseJSON.message,
+                    className: `error`,
+                    style: {
+                      background: "red",
+                    }
+                  }).showToast();
+                
+                // handle the error case
+            }
+        });
+    }
+
+</script>
 
 </html>
