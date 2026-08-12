@@ -18,32 +18,67 @@ from django.contrib import messages
 # sms_api = ghasedakpack.Ghasedak(
 #   '6a061b6d44718f16ccf3e790fcb4d8c45957118c275c1983986285c820a5ca34i9sbhbmD3sdJnmyN')
 
-
 class UserLogin(View):
+
     @staticmethod
     def get(request):
         form = LoginForm()
-        return render(request, "login.html", {"form": form})
+
+        return render(
+            request,
+            "login.html",
+            {
+                "form": form,
+                "next": request.GET.get("next", ""),
+            }
+        )
 
     def post(self, request):
+
         form = LoginForm(request.POST)
+
         if form.is_valid():
+
             valid = form.cleaned_data
+
             login_user = authenticate(
-                username=valid["username"], password=valid["password"]
+                username=valid["username"],
+                password=valid["password"]
             )
+
             if login_user is not None:
+
                 login(request, login_user)
+
+                next_url = request.POST.get("next") or request.GET.get("next")
+
+                if next_url:
+                    return redirect(next_url)
+
                 return redirect("Product:Product_view")
+
             else:
-                form.add_error("username", "اطلاعات وارد شده صحیح نمی باشد ")
+
+                form.add_error(
+                    "username",
+                    "اطلاعات وارد شده صحیح نمی باشد"
+                )
+
         else:
+
             form.add_error(
-                "username", "لطفا دوباره بررسی کنید اطلاعات وارد شده صحیح نمی باشد"
+                "username",
+                "لطفا دوباره بررسی کنید اطلاعات وارد شده صحیح نمی باشد"
             )
 
-        return render(request, "login.html", {"form": form})
-
+        return render(
+            request,
+            "login.html",
+            {
+                "form": form,
+                "next": request.POST.get("next", ""),
+            }
+        )
 
 class UserRegister(View):
     """User login through phone number and email"""

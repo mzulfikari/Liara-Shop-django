@@ -6,7 +6,8 @@ from Products.models import Products, Comment, Color, ProductStatusType, Categor
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render, redirect
 from django.core.exceptions import FieldError
-
+from django.utils.encoding import uri_to_iri
+from django.shortcuts import get_object_or_404
 
 class ProductDetails(DetailView):
     template_name = "Product/single-product.html"
@@ -37,7 +38,23 @@ class ProductDetails(DetailView):
             else:
                 messages.error(request, "متن نظر نمی‌تواند خالی باشد.")
             return redirect(request.path)
+    def get_object(self, **kwargs):
+        slug = self.kwargs.get("slug")
 
+        print("========== PRODUCT DEBUG ==========")
+        print("RAW SLUG:", repr(slug))
+        print("DECODED SLUG:", repr(uri_to_iri(slug)))
+
+        product = get_object_or_404(
+            Products,
+            slug=uri_to_iri(slug)
+        )
+
+        print("PRODUCT:", product)
+        print("DB SLUG:", repr(product.slug))
+        print("===================================")
+
+        return product
 
 class Product_View(ListView):
     model = Products

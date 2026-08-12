@@ -18,6 +18,22 @@
       -webkit-appearance: none;
       margin: 0;
     }
+    input.quantity-input[type="number"]::-webkit-inner-spin-button,
+    input.quantity-input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none !important;
+        appearance: none !important;
+        display: none !important;
+    }
+
+    input.quantity-input[type="number"] {
+        -moz-appearance: textfield !important;
+        -webkit-appearance: none !important;
+        appearance: none !important;
+    }
+.quantity-input {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
   </style>
 
 </head>
@@ -81,12 +97,20 @@
                 {{ item.product_obj.title }}
               </td>
               <td class="px-6 py-4">
-                <div class="quantity flex items-center">
-                  <input class="w-12 h-8 mx-2 text-center border focus:outline-none rounded-lg" type="number" min="1" step="1" value="1" readonly>
-                </div>
+                  <div class="quantity flex items-center">
+                      <input
+                          class="quantity-input w-16 h-8 mx-2 text-center border focus:outline-none rounded-lg"
+                          type="number"
+                          min="1"
+                          max="{{ item.product_obj.stock_count }}"
+                          step="1"
+                          value="{{ item.quantity }}"
+                          onchange="changeProductQuantity('{{ item.product_id }}', this.value, this)"
+                      >
+                  </div>
               </td>
               <td class="px-6 py-4 text-sm opacity-90 text-gray-900">
-                {{ item.total_price|rial_price  }}  تومان
+                {{ item.total_price|rial_price }}  تومان
               </td>
               <td class="px-6 py-4">
                 <a href="#" class=" text-red-600">حذف</a>
@@ -97,8 +121,8 @@
           </tbody>
         </table>
       </div>
-
-
+    
+      {% if  cart_items %}
       <div class="border shadow-xl rounded-2xl mx-auto max-w-xl mt-7 flex flex-col gap-y-5 py-5 px-5 md:px-20">
         <div class="flex justify-between center:""">
           <div>
@@ -121,11 +145,21 @@
           </div>
         </div>
       </div>
+      {% if request.user.is_authenticated %}
       <a href="{% url 'order:checkout' %}" class="flex justify-center items-center opacity-90 my-5">
         <button class="px-7 py-2 text-center text-white bg-red-500 align-middle border-0 rounded-lg shadow-md text-sm">تایید و پرداخت</button>
       </a>
+      {% else %}
+      <a href="{% url 'account:Login-user' %}?next={% url 'order:checkout' %}" class="flex justify-center items-center opacity-90 my-5">
+        <button class="px-7 py-2 text-center text-white bg-red-500 align-middle border-0 rounded-lg shadow-md text-sm">برای نهایی شدن خرید ابتدا وارد حساب کاربری خود شوید</button>
+      </a>
+      {% endif %}
     </div>
   </div>
+  {% endif %}
+ 
+
+
   <!-- FOOTER -->
   {% include 'includes/footer.html' %}
   <!--DROPDOWNS FOR NAVBAR-->
@@ -140,21 +174,106 @@
   <script src="{% static 'js/jquery.min.js' %}"></script>
   <script src="{% static 'js/main.js' %}"></script>
   <script>
-        function changeProductQuantity(product_id,quantity){
-        $.ajax({
-            url:"{% url 'Cart:session-update-product' %}",
-            method: 'POST',
-            data:{
-                product_id:product_id,
-                quantity:quantity,
-                csrfmiddlewaretoken: '{{ csrf_token }}'
-            },
-        success: function(response){
-            window.location.reload()
-        },
-        error: function(jqXHR,textStatus,errorThrown){
-            console.log(errorThrown)
+    function changeProductQuantity(product_id, quantity, input) {
+
+        const maxStock = parseInt(input.max);
+        const currentValue = parseInt(quantity);
+
+        if (currentValue < 1) {
+            input.value = 1;
+            return;
         }
-    });
+
+        if (currentValue > maxStock) {
+            input.value = maxStock;
+        }
+
+        $.ajax({
+            url: "{% url 'Cart:session-update-product' %}",
+            method: "POST",
+
+            data: {
+                product_id: product_id,
+                quantity: input.value,
+                csrfmiddlewaretoken: "{{ csrf_token }}"
+            },
+
+            success: function(response) {
+
+                const updatedValue = parseInt(input.value);
+
+                if (updatedValue >= maxStock) {
+
+                    Swal.fire({
+
+                        title: "موجودی به حد نصاب رسید",
+
+                        text: `حداکثر موجودی این محصول ${maxStock} عدد است.`,
+
+                        icon: "info",
+
+                        showConfirmButton: true,
+
+                        confirmButtonText: "متوجه شدم",
+
+                        buttonsStyling: false,
+
+                        allowOutsideClick: false,
+
+                        customClass: {
+
+                            popup:
+                                "rounded-3xl shadow-2xl",
+
+                            title:
+                                "text-lg md:text-xl font-bold text-gray-800",
+
+                            htmlContainer:
+                                "text-sm md:text-base text-gray-500 leading-7",
+
+                            confirmButton:
+                                "inline-flex items-center justify-center " +
+                                "min-w-[130px] h-11 px-6 " +
+                                "mt-4 " +
+                                "bg-gray-900 " +
+                                "hover:bg-gray-800 " +
+                                "active:bg-gray-950 " +
+                                "!text-white " +
+                                "!font-medium " +
+                                "text-sm " +
+                                "rounded-xl " +
+                                "border border-gray-700 " +
+                                "shadow-lg shadow-gray-900/20 " +
+                                "hover:shadow-xl hover:shadow-gray-900/30 " +
+                                "hover:-translate-y-0.5 " +
+                                "active:translate-y-0 " +
+                                "transition-all duration-200 ease-out " +
+                                "cursor-pointer"
+                        }
+
+                    }).then(function(result) {
+
+                        if (result.isConfirmed) {
+                            window.location.reload();
+                        }
+
+                    });
+
+                } else {
+
+                    window.location.reload();
+
+                }
+            },
+
+            error: function(jqXHR, textStatus, errorThrown) {
+
+                console.log(
+                    "خطا در تغییر تعداد محصول:",
+                    errorThrown
+                );
+
+            }
+        });
     }
 </script>
