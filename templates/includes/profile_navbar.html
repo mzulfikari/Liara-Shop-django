@@ -51,8 +51,11 @@
             </svg>
           </a>
 
-          <a href="./profile-order.html"
-            class="text-sm opacity-80 w-full flex justify-end pr-5 flex-row-reverse items-center hover:text-red-600 transition hover:bg-gray-100 py-3 rounded-2xl">
+          <a href="{% url 'Profile:order-list' %}"
+            class="text-sm opacity-80 w-full flex justify-end pr-5 flex-row-reverse items-center hover:text-red-600 transition hover:bg-gray-100 py-3 rounded-2xl
+              {% if request.resolver_match.url_name == 'order-list' %}
+                      bg-gray-200 text-red-600 
+                        {% endif %}"">
             سفارش ها
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#474747" viewBox="0 0 256 256">
               <path

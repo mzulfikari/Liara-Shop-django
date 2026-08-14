@@ -26,14 +26,14 @@
         <div>
           <form method="post" id="checkout">
             {% csrf_token %}
-            <input name="coupon" form="checkout"
+            {% comment %} <input name="coupon" form="checkout"
               class="border border-gray-400 outline-none focus:border-red-300 rounded-lg p-1" type="text"
-              id="coupon-input" placeholder="کد تخفیف شما">
+              id="coupon-input" placeholder="کد تخفیف شما"> {% endcomment %}
         </div>
         <div>
-          <button type="button" class="bg-red-600 text-white px-3 py-1 rounded-lg shadow-md" onclick="validateCoupon()">
+          {% comment %} <button type="button" class="bg-red-600 text-white px-3 py-1 rounded-lg shadow-md" onclick="validateCoupon()">
             تایید
-          </button>
+          </button> {% endcomment %}
         </div>
       </div>
       <div>
@@ -142,8 +142,8 @@
     function applyDiscount(total_price, total_tax) {
       $("#total-price").html(total_price)
       $("#total-tax").html(total_tax)
-      formatPriceInToman(document.getElementById("total_price"))
-      formatPriceInToman(document.getElementById("total_tax"))
+      formatPriceInToman(document.getElementById("total-price"))
+      formatPriceInToman(document.getElementById("total-tax"))
     }
 
     function validateCoupon() {
