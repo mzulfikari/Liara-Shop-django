@@ -67,28 +67,51 @@ class NotificationList(LoginRequiredMixin,View):
             },
         )
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView
+from django.shortcuts import get_object_or_404, redirect
 
-class AddressView(LoginRequiredMixin,ListView):
+class AddressView(LoginRequiredMixin, ListView):
     template_name = "profile/profile-address.html"
     model = Address
     context_object_name = "Address"
+    
+    
+    def get_queryset(self):
+        return Address.objects.filter(
+            user=self.request.user
+        ).order_by("-is_default", "-id")
 
     def post(self, request):
         user = request.user
 
         if "delete_address" in request.POST:
             address_id = request.POST.get("delete_address")
-            address = get_object_or_404(Address, pk=address_id, user=user)
+
+            address = get_object_or_404(
+                Address,
+                pk=address_id,
+                user=user
+            )
+
             address.delete()
 
         elif "set_default" in request.POST:
             address_id = request.POST.get("set_default")
-            address = get_object_or_404(Address, pk=address_id, user=user)
 
-            Address.objects.filter(user=user, is_default=True).update(is_default=False)
+            address = get_object_or_404(
+                Address,
+                pk=address_id,
+                user=user
+            )
+
+            Address.objects.filter(
+                user=user,
+                is_default=True
+            ).update(is_default=False)
 
             address.is_default = True
-            address.save()
+            address.save(update_fields=["is_default"])
 
         return redirect("Profile:Address")
 

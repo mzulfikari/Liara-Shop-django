@@ -8,6 +8,8 @@ from utils.validator import *
 from django.core.validators import RegexValidator
 from Products.models import *
 
+def otp_expiry():
+    return timezone.now() + timedelta(minutes=2)
 
 class User(AbstractBaseUser):
     """User profile that authenticates and
@@ -101,8 +103,8 @@ class Otp(models.Model):
 
     code = models.SmallIntegerField(verbose_name="کد یکبار مصرف")
     code_expiry = models.DateTimeField(
-        verbose_name="تاریخ انقضای کد",
-        default=timezone.now() + timedelta(minutes=2),
+    verbose_name="تاریخ انقضای کد",
+    default=otp_expiry,
     )
     is_used = models.BooleanField(default=False, verbose_name="استفاده شده؟")
 

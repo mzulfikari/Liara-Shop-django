@@ -81,83 +81,197 @@ class UserLogin(View):
         )
 
 class UserRegister(View):
-    """User login through phone number and email"""
+    """Register user with phone number and send OTP."""
+
+    template_name = "login-register.html"
 
     def get(self, request):
         form = RegisterForm()
-        return render(request, "login-register.html", {"form": form})
+
+        return render(
+            request,
+            self.template_name,
+            {"form": form},
+        )
 
     def post(self, request):
-        phone = request.POST.get("phone")
         form = RegisterForm(request.POST)
-        if form.is_valid():
 
-            valid = form.cleaned_data
-            randcode = randint(1000, 9999)
-            # دریافت رمز یکبار مصرف
-            # sms_api.verification({
-            #     'receptor':valid["phone"],'type':'1','template':'randcode','param1':randcode
-            # })
-            token = str(uuid4())
+        if not form.is_valid():
+            return render(
+                request,
+                self.template_name,
+                {"form": form},
+            )
 
-            Otp.objects.create(phone=valid["phone"], code=randcode, token=token)
+        phone = form.cleaned_data["phone"]
 
-            return redirect(reverse("account:Verify") + f"?token={token}")
-        else:
-            form.add_error("phone", "اطلاعات وارد شده صحیح نمی باشد ")
-        return render(request, "verify.html", {"form": form, "phone": phone})
+        # بررسی وجود کاربر
+        if User.objects.filter(phone=phone).exists():
+            form.add_error(
+                "phone",
+                "این شماره همراه قبلاً ثبت‌نام کرده است.",
+            )
+
+            return render(
+                request,
+                self.template_name,
+                {"form": form},
+            )
+
+        # ساخت کاربر
+        user = User.objects.create_user(
+            phone=phone,
+            first_name=form.cleaned_data["first_name"],
+            last_name=form.cleaned_data["last_name"],
+            password=form.cleaned_data["password"],
+        )
+
+        # ساخت OTP
+        code = randint(1000, 9999)
+        token = str(uuid4())
+
+        Otp.objects.create(
+            phone=phone,
+            code=code,
+            token=token,
+        )
+
+        # TODO: ارسال SMS
+        #
+        # sms_api.verification({
+        #     "receptor": phone,
+        #     "type": "1",
+        #     "template": "randcode",
+        #     "param1": code,
+        # })
+
+        verify_url = reverse("account:Verify")
+
+        return redirect(
+            f"{verify_url}?token={token}"
+        )
 
 
 class CheckOtp(View):
-    """
-    To authenticate the entered number and expire
-    the one-time code within 2 minutes
-    """
+    """Verify OTP and login user."""
+
+    template_name = "verify.html"
 
     def get(self, request):
+        token = request.GET.get("token")
+
         form = CheckOtpform()
-        return render(request, "verify.html", {"form": form})
+
+        return render(
+            request,
+            self.template_name,
+            {
+                "form": form,
+                "token": token,
+            },
+        )
 
     def post(self, request):
         token = request.GET.get("token")
+
         form = CheckOtpform(request.POST)
 
-        if form.is_valid():
-            valid = form.cleaned_data
+        if not token:
+            form.add_error(
+                None,
+                "توکن احراز هویت نامعتبر است.",
+            )
 
-            if Otp.objects.filter(
-                code=valid["code"],
-                token=token,
-            ).exists():
-                otp = Otp.objects.get(token=token)
+            return render(
+                request,
+                self.template_name,
+                {"form": form},
+            )
 
-                if otp.is_expired:
-                    form.add_error("code", "کد منقضی شده است")
-                    return render(request, "verify.html", {"form": form})
-                user, is_created = User.objects.get_or_create(
-                    phone=otp.phone,
-                )
+        if not form.is_valid():
+            return render(
+                request,
+                self.template_name,
+                {
+                    "form": form,
+                    "token": token,
+                },
+            )
 
-                User.objects.create_user(
-                    phone=form.cleaned_data.get("phone"),
-                    last_name=form.cleaned_data.get("last_name"),
-                    first_name=form.cleaned_data.get("first_name"),
-                    password=form.cleaned_data.get("password"),
-                )
+        code = int(form.cleaned_data["code"])
 
-                login(
-                    request, user, backend="django.contrib.auth.backends.ModelBackend"
-                )
-                return redirect("/")
+        # پیدا کردن OTP
+        otp = Otp.objects.filter(
+            token=token,
+            phone__isnull=False,
+        ).first()
 
-            otp.delete()
+        if not otp:
+            form.add_error(
+                "code",
+                "کد تأیید معتبر نیست.",
+            )
 
-        else:
-            form.add_error(None, "اطلاعات وارد شده صحیح نمی باشد ")
+            return render(
+                request,
+                self.template_name,
+                {
+                    "form": form,
+                    "token": token,
+                },
+            )
 
-        return render(request, "verify.html", {"form": form})
+        # بررسی اعتبار OTP
+        if not otp.is_valid(code):
+            form.add_error(
+                "code",
+                "کد تأیید اشتباه یا منقضی شده است.",
+            )
 
+            return render(
+                request,
+                self.template_name,
+                {
+                    "form": form,
+                    "token": token,
+                },
+            )
 
+        # پیدا کردن کاربر
+        user = User.objects.filter(
+            phone=otp.phone
+        ).first()
+
+        if not user:
+            form.add_error(
+                None,
+                "کاربر مربوط به این کد پیدا نشد.",
+            )
+
+            return render(
+                request,
+                self.template_name,
+                {
+                    "form": form,
+                    "token": token,
+                },
+            )
+
+        # OTP با موفقیت استفاده شد
+        otp.is_used = True
+        otp.save(update_fields=["is_used"])
+
+        # ورود کاربر
+        login(
+            request,
+            user,
+            backend="django.contrib.auth.backends.ModelBackend",
+        )
+
+        return redirect("/")
+    
+    
 def logout_user(request):
     logout(request)
     return redirect("/")
