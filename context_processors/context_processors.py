@@ -3,23 +3,21 @@ from django.db.models import Prefetch
 from core.models import SiteSettings, Banner
 from django.views.generic import View, TemplateView
 from Cart.cart import CartSession
+from django.core.cache import cache
+from django.conf import settings
 
 
 def Categories(request):
-    """To display categories that have products
-    Get categories that have at least one product
-    Sort products by creation date and limit the number of products to 8 products"""
-
-    Categories = Category.objects.filter(views=True, products__isnull=False).distinct()
-
-    prefetch = Prefetch("products", queryset=Products.objects.order_by("-created"))
-    Categories = Categories.prefetch_related(prefetch)
-    return {"Categories": Categories}
+    cache_key = "site_categories"
+    categories = cache.get(cache_key)
+    if categories is None:
+        categories = list( Category.objects.filter( views=True,products__isnull=False ).distinct() )
+        cache.set( cache_key, categories,settings.CACHE_TIMEOUT)
+    return { "Categories": categories }
 
 
 def site_settings(request):
     """Default site settings"""
-
     try:
         settings = SiteSettings.objects.first()
     except SiteSettings.DoesNotExist:

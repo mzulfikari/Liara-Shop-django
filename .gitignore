@@ -9,7 +9,12 @@ env/
 ENV/
 env.bak/
 venv.bak/
-
+.env
+.venv/
+__pycache__/
+*.pyc
+staticfiles/
+media/
 # Distribution / packaging
 build/
 dist/

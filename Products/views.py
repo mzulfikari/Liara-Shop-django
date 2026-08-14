@@ -12,7 +12,30 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.views import View
 from Dashbord .models import Favorites
+from django.core.cache import cache
+from django.conf import settings
 
+
+def get_cached_products(key, **filters):
+
+    products = cache.get(key)
+
+    if products is None:
+
+        products = list(
+            Products.objects.filter(
+                status=ProductStatusType.publish.value,
+                **filters
+            )[:8]
+        )
+
+        cache.set(
+            key,
+            products,
+            settings.CACHE_TIMEOUT
+        )
+
+    return products
 
 class ProductDetails(DetailView):
     template_name = "Product/single-product.html"
@@ -76,11 +99,24 @@ class Product_View(ListView):
         return queryset
 
     def get_context_data(self, **kwargs):
+
         context = super().get_context_data(**kwargs)
-        context["discount_products"] = Products.objects.filter(status=ProductStatusType.publish.value, Discounts=True)
-        context["contour_products"] = Products.objects.filter(
-        status=ProductStatusType.publish.value,category__title="کانتور و هایلاتر")[:8]
-        context["eyebrow_products"] = Products.objects.filter(status=ProductStatusType.publish.value,category__title="ابرو")[:8]
+
+        context["discount_products"] = get_cached_products(
+            "home_discount_products",
+            Discounts=True
+        )
+
+        context["contour_products"] = get_cached_products(
+            "home_contour_products",
+            category__title="کانتور و هایلاتر"
+        )
+
+        context["eyebrow_products"] = get_cached_products(
+            "home_eyebrow_products",
+            category__title="ابرو"
+        )
+
         return context
     
 class Product_list(ListView):

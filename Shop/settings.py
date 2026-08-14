@@ -29,7 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-LOGIN_URL = "includes/welcome.html"
+LOGIN_URL = "account:Login-user"
 
 # Application definition
 
@@ -219,6 +219,20 @@ JALALI_DATE_DEFAULTS = {
         },
     },
 }
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "django_cache",
+    }
+}
+
+CACHE_TIMEOUT = config(
+    "CACHE_TIMEOUT",
+    default=300,
+    cast=int
+)
+
+CACHE_TIMEOUT=300
 
 # SECURE_SSL_REDIRECT = False
 # SESSION_COOKIE_SECURE = False
