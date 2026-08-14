@@ -40,20 +40,10 @@ class ProductDetails(DetailView):
             return redirect(request.path)
     def get_object(self, **kwargs):
         slug = self.kwargs.get("slug")
-
-        print("========== PRODUCT DEBUG ==========")
-        print("RAW SLUG:", repr(slug))
-        print("DECODED SLUG:", repr(uri_to_iri(slug)))
-
         product = get_object_or_404(
             Products,
             slug=uri_to_iri(slug)
         )
-
-        print("PRODUCT:", product)
-        print("DB SLUG:", repr(product.slug))
-        print("===================================")
-
         return product
 
 class Product_View(ListView):

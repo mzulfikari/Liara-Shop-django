@@ -46,7 +46,7 @@
             تاریخ ایجاد:
           </div>
           <div class="text-sm opacity-90">
-            {{ notification.created_at|to_jalali:'%d %b %Y' }}
+            {{ notification.created_at|to_jalali:'%d %B %Y' }}
           </div>
         </div>
 
@@ -56,7 +56,7 @@
             اعتبار تا :
           </div>
           <div class="text-sm opacity-90">
-            {{ notification.expiration_date|to_jalali:'%d %b %Y' }}
+            {{ notification.expiration_date|to_jalali:'%d %B %Y' }}
           </div>
           {% endif %}
         </div>

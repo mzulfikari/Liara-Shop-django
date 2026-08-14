@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
-from django.views.generic import ListView, View, TemplateView
+from django.views.generic import ListView, View,DetailView
 from .forms import AddressAdd, Change_Password, Change_Profile
 from .models import *
 from django.db.models import Q
@@ -12,6 +12,11 @@ from django.contrib.auth import update_session_auth_hash
 from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from Products.models import Comment
+from django.shortcuts import render,redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import FieldError
+from order.models import OrderModel
+
 
 
 @login_required
@@ -37,7 +42,8 @@ def Change_profile(request):
     return render(request, "profile/profile-change.html", {"form": form})
 
 
-class NotificationList(LoginRequiredMixin, View):
+
+class NotificationList(LoginRequiredMixin,View):
 
     def get(self, request):
         user = request.user
@@ -62,7 +68,7 @@ class NotificationList(LoginRequiredMixin, View):
         )
 
 
-class AddressView(LoginRequiredMixin, ListView):
+class AddressView(LoginRequiredMixin,ListView):
     template_name = "profile/profile-address.html"
     model = Address
     context_object_name = "Address"
@@ -174,3 +180,39 @@ class FavoriteViews(ListView):
 
     def get_queryset(self):
         return Favorites.objects.filter(user=self.request.user).order_by("-created_at")
+
+
+class CustomerOrderListView(LoginRequiredMixin,ListView,):
+    
+    template_name = "profile/profile-order.html"
+
+    paginate_by = 3
+    
+    def get_paginate_by(self,queryset):
+        return self.request.GET.get('page_size',self.paginate_by)
+    
+    def get_queryset(self):
+        queryset = OrderModel.objects.filter(user=self.request.user)
+        if search_q:= self.request.GET.get("q"):
+            queryset = queryset.filter(title__icontains=search_q)
+        if order_by:= self.request.GET.get("order_by"):
+            try:
+             queryset = queryset.order_by(order_by)
+            except FieldError:
+                pass
+        return queryset
+    
+    def get_context_data(self, **kwargs): 
+        context = super().get_context_data(**kwargs)
+        context["total_items"] = self.get_queryset().count()
+        return context 
+   
+   
+class CustomerOrderDetailView(LoginRequiredMixin,DetailView):
+    template_name = "profile/profile-order-datail.html"
+
+    def get_queryset(self):
+        return OrderModel.objects.filter(user=self.request.user)
+    
+    
+    
