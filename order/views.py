@@ -14,10 +14,6 @@ from pyment.zarinpal_client import ZarinPalSandbox
 from pyment.models import PaymentModel
 from Dashbord.models import Address
 
-class OrderView(TemplateView):
-    
-    template_name = 'checkout.html'
-
 class OrderCheckOutView(LoginRequiredMixin, FormView):
     template_name = "checkout.html"
     form_class = CheckOutForm
@@ -71,12 +67,9 @@ class OrderCheckOutView(LoginRequiredMixin, FormView):
     def create_order(self, address):
         return OrderModel.objects.create(
             user=self.request.user,
-            address=address.address,
-            state=address.state,
-            city=address.city,
-            zip_code=address.zip_code,
+            address=address,
         )
-
+        
     def create_order_items(self, order, cart):
         for item in cart.cart_items.all():
             OrderItemModel.objects.create(
@@ -116,15 +109,15 @@ class OrderCheckOutView(LoginRequiredMixin, FormView):
 
 class OrderCompletedOutView(TemplateView):
 
-    template_name = "order/order-completed.html"
+    template_name = "checkout-complete-buy.html"
 
 
 class OrderFailedView(TemplateView):
 
-    template_name = "order/order-failed.html"
+    template_name = "checkout-no-complete-buy.html"
 
 
-class ValidateCouponView(LoginRequiredMixin, View):
+class ValidateCouponView(View):
 
     def post(self, request, *args, **kwargs):
         code = request.POST.get("code")

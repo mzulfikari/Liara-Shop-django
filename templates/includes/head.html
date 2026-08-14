@@ -1,4 +1,5 @@
 {% load static %}
+{% load filters %}
 
 <!-- TOP NAVBAR WITH SEARCH AND PROFILE -->
 <form action="{% url 'Product:Product_list' %}" method="get">
@@ -24,7 +25,8 @@
     <div class="order-4 hidden lg:flex">
       <span class="block relative" x-data="{showChildren:false}" @mouseenter="showChildren=true"
         @mouseleave="showChildren=false">
-        <a href="{% url 'Profile:Profile_View' %}" class="flex items-center h-10 leading-10 px-3 mx-1 transition rounded-xl hover:bg-red-50">
+        <a href="{% url 'Profile:Profile_View' %}"
+          class="flex items-center h-10 leading-10 px-3 mx-1 transition rounded-xl hover:bg-red-50">
           {% if user.image %}
           <img class="ml-1 w-6 h-6 object-cover" src="{{ user.image.url }}" style="border-radius: 100%"
             alt="User Image" />
@@ -70,7 +72,8 @@
                 </a>
               </li>
               <li class="relative">
-                <a href="{% url 'Profile:FavoriteViews' %}" class="px-4 py-2 flex w-full items-start hover:bg-red-50 rounded-xl">
+                <a href="{% url 'Profile:FavoriteViews' %}"
+                  class="px-4 py-2 flex w-full items-start hover:bg-red-50 rounded-xl">
                   <span class="flex justify-center items-center text-sm opacity-90">
                     <img class="w-5 ml-1" src="{% static 'image/heart.png' %}" alt="" /> علاقه مندی ها
                   </span>
@@ -139,9 +142,7 @@
             <span class="text-sm text-neutral-800 hover:text-neutral-700 opacity-95">سبد خرید</span>
             <span><img class="w-4 mr-1" src="{% static 'image/chevron-down-login.png' %}" alt="" /></span>
           </a>
-
-          <div
-            class="bg-white rounded-2xl shadow-md border border-gray-50 text-sm absolute top-auto left-0 w-72 z-30 mt-1"
+          <div class="bg-white rounded-2xl shadow-md border border-gray-50 text-sm absolute top-auto left-0 w-72 z-30 mt-1"
             x-show="showChildren" x-transition:enter="transition ease duration-300 transform"
             x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
             x-transition:leave="transition ease duration-300 transform"
@@ -152,7 +153,8 @@
                 {% if cart_items %}
                 {% for item in cart_items %}
                 <li class="relative">
-                  <a href="./single-product.html" class="px-2 py-2 flex w-full items-start hover:bg-red-50 rounded-xl">
+                  <a href="{% url 'Cart:cart-detail' %}"
+                    class="px-2 py-2 flex w-full items-start hover:bg-red-50 rounded-xl">
                     <span class="flex justify-center items-center opacity-90">
                       <div class="flex">
                         <img class="w-14 ml-2 rounded-lg" src="{{ item.product_obj.image.url }}" alt="" />
@@ -160,26 +162,15 @@
                           <div class="opacity-80 w-full text-sm">{{ item.product_obj.title }}</div>
                           <div class="flex opacity-75 text-xs gap-1">
                             <div>قیمت:</div>
-                            <div>{{ item.product_obj.price }}</div>
+                            <div>{{ item.product_obj.price|rial_price }}</div>
                             <div>تومان</div>
                           </div>
                         </div>
-                        <span
-                          class="text-red-400 hover:text-red-500 bg-red-100 hover:bg-red-200 px-2 text-xl font-bold h-7 rounded-full cursor-pointer absolute left-2 top-5">×</span>
-                      </div>
-                    </span>
                   </a>
                 </li>
                 {% endfor %}
                 <li class="relative mt-2">
-                  <a href="./checkout.html" class="px-2 py-2 flex w-full items-start justify-center">
-                    <span class="flex justify-center items-center opacity-90 w-full">
-                      <button
-                        class="px-7 py-2 w-full text-center text-white bg-red-500 align-middle border-0 rounded-lg shadow-md text-xs hover:bg-red-600 transition">
-                        تسویه حساب
-                      </button>
-                    </span>
-                  </a>
+                <a href="{% url 'order:checkout' %}" class="px-7 py-2 w-full text-center text-white bg-red-500 border-0 rounded-lg shadow-md text-xs hover:bg-red-600 transition flex justify-center items-center"> تسویه حساب</a>
                 </li>
                 {% else %}
                 <li class="relative py-6 flex flex-col justify-center items-center gap-3">
@@ -260,16 +251,15 @@
           <a href="{% url 'Core:Contact_us' %}"
             class="flex items-center h-10 text-sm leading-10 px-4 mx-1 transition text-gray-700 hover:text-red-500">
             <span class="border-b-2 border-transparent hover:border-red-600 transition-colors">تماس با ما</span>
-          </a>
-        </li>
-
-      </ul>
-    </div>
-  </div>
-  </li>
-  </ul>
-</div>
-</div>
+           </a>
+         </li>
+       </ul>
+      </div>
+     </div>
+    </li>
+   </ul>
+ </div>
+ </div>
 </div>
 
 <!-- MOBILE SIDEBAR MENU -->
@@ -294,42 +284,28 @@
               </div>
               {% if request.user.is_authenticated %}
               <!-- Logged In User -->
-              <div
-                class="flex justify-center items-center py-2 px-4 text-sm text-neutral-800 rounded-xl hover:bg-red-100 transition">
-
+              <div class="flex justify-center items-center py-2 px-4 text-sm text-neutral-800 rounded-xl hover:bg-red-100 transition">
                 <a href="{% url 'Profile:Profile_View' %}" class="flex items-center">
-
                   {% if user.image %}
                   <img class="ml-2 w-6 h-6 object-cover rounded-full" src="{{ user.image.url }}" alt="User Image">
                   {% else %}
-                  <img class="ml-2 w-5 h-5 object-contain" src="{% static 'image/userNotImage.png' %}"
-                    alt="Default User">
+                  <img class="ml-2 w-5 h-5 object-contain" src="{% static 'image/userNotImage.png' %}" alt="Default User">
                   {% endif %}
-
                   <span>
-                    {{ request.user }}
+                  {{ request.user }}
                   </span>
-
                 </a>
               </div>
-
               {% else %}
-
               <!-- Guest User -->
-              <div
-                class="flex justify-center items-center py-2 px-4 text-sm text-neutral-800 rounded-xl hover:bg-red-100 transition">
-
+              <div class="flex justify-center items-center py-2 px-4 text-sm text-neutral-800 rounded-xl hover:bg-red-100 transition">
                 <a href="{% url 'account:Login-user' %}" class="flex items-center">
-
                   <img class="ml-2 w-5" src="{% static 'image/user.png' %}" alt="Login">
-
                   <span>
                     ورود
                   </span>
-
                 </a>
               </div>
-
               {% endif %}
             </div>
           </div>

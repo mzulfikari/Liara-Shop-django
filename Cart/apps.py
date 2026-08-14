@@ -5,3 +5,7 @@ class CartConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = "Cart"
     verbose_name = "سبد خرید"
+
+    def ready(self):
+        import Cart.signals
+        return super().ready()
