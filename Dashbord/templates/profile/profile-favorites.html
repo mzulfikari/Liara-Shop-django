@@ -30,105 +30,84 @@
   {% if not favorites %}
 
   <div class="md:w-8/12 lg:w-9/12 flex flex-col gap-y-5">
-      <div>
-        <div class="opacity-80">
-          <div
-            class="bg-gradient-to-r from-purple-100 via-pink-100 to-red-100 border border-red-200 rounded-2xl p-4 text-center shadow-md">
-            <p class="text-sm md:text-base text-gray-700 font-medium">
-              چیزی که دوستش داری رو از دست نده —
-              <span class="text-red-500 font-semibold"> محصولات مورد علاقه‌ت رو اینجا ذخیره کن</span>
+    <div>
+      <div class="opacity-80">
+        <div
+          class="bg-gradient-to-r from-purple-100 via-pink-100 to-red-100 border border-red-200 rounded-2xl p-4 text-center shadow-md">
+          <p class="text-sm md:text-base text-gray-700 font-medium">
+            چیزی که دوستش داری رو از دست نده —
+            <span class="text-red-500 font-semibold"> محصولات مورد علاقه‌ت رو اینجا ذخیره کن</span>
 
-            </p>
-          </div>
+          </p>
         </div>
       </div>
+    </div>
 
-      {% else %}
+    {% else %}
 
-      <div class="md:w-8/12 lg:w-9/12">
-        <div class="rounded-xl">
-          <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-            <thead class="hidden md:table-header-group text-xs text-gray-700 bg-gray-50">
-              <tr>
-                <th scope="col" class="px-16 py-3">
-                  <span class="sr-only">تصویر</span>
-                </th>
-                <th scope="col" class="md:pr-6 py-3">
-                  نام محصول
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  قیمت
-                </th>
-                <!-- <th scope="col" class="pr-10 py-3">
+    <div class="md:w-8/12 lg:w-9/12">
+      <div class="rounded-xl">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+          <thead class="hidden md:table-header-group text-xs text-gray-700 bg-gray-50">
+            <tr>
+              <th scope="col" class="px-16 py-3">
+                <span class="sr-only">تصویر</span>
+              </th>
+              <th scope="col" class="md:pr-6 py-3">
+                نام محصول
+              </th>
+              <th scope="col" class="px-6 py-3">
+                قیمت
+              </th>
+              <!-- <th scope="col" class="pr-10 py-3">
                     افزودن به سبدخرید
                   </th> -->
-                <th scope="col" class="px-4 py-3">
-                  دستورات
-                </th>
-              </tr>
-            </thead>
+              <th scope="col" class="px-4 py-3">
+                دستورات
+              </th>
+            </tr>
+          </thead>
 
-            {% for favorite in favorites  %}
-            <tbody class="grid grid-cols-1 sm:grid-cols-2 md:contents gap-5">
-              <tr class="bg-white border-b hover:bg-gray-50 grid grid-cols-1 justify-items-center md:table-row">
-                <td class="p-4">
-                  <img src="{{ favorite.product.image.url }}" class="w-48 md:w-32 max-w-full max-h-full rounded-lg"
-                    alt="">
-                </td>
-                <td class="md:pr-6 py-4 text-sm opacity-90 text-gray-900">
-                  {{ favorite.product.title }}
-                </td>
-                <td class="px-6 py-4 text-sm opacity-90 text-gray-900">
-                  {{ favorite.product.price|rial_price }}
-                </td>
+          {% for favorite in favorites %}
+          <tbody class="grid grid-cols-1 sm:grid-cols-2 md:contents gap-5 ">
+            <tr
+              class="favorite-item bg-white border-b hover:bg-gray-50 grid grid-cols-1 justify-items-center md:table-row">
+              <td class="p-4">
+                <img src="{{ favorite.product.image.url }}" class="w-48 md:w-32 max-w-full max-h-full rounded-lg"
+                  alt="">
+              </td>
+              <td class="md:pr-6 py-4 text-sm opacity-90 text-gray-900">
+                {{ favorite.product.title }}
+              </td>
+              <td class="px-6 py-4 text-sm opacity-90 text-gray-900">
+                {{ favorite.product.price|rial_price }}
+              </td>
 
-                <td class="px-2 py-4">
-                  <a href="#" class=" text-red-600">حذف</a>
-                  <a href="#"
-                    class="text-white bg-green-500 hover:bg-green-600 transition px-2 py-1 shadow-lg rounded-md mr-3">مشاهده</a>
-                </td>
-              </tr>
+              <td class="px-2 py-4">
+                <form method="post" action="{% url 'Profile:favorite-delete' favorite.pk %}"
+                  class="delete-favorite-form">
+                  {% csrf_token %}
+
+                  <button type="submit" class="text-red-600 hover:text-red-700 transition">
+                    حذف
+                  </button>
+                  <a href="{% url 'Product:Product_details' slug=favorite.product.slug %}"
+                  class="text-white bg-green-500 hover:bg-green-600 transition px-2 py-1 shadow-lg rounded-md mr-3">مشاهده</a>
+                </form>
+                
+              </td>
+            </tr>
             {% endfor %}
-              {% endif %}
-            </tbody>
-          </table>
-        </div>
+            {% endif %}
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
   </div>
+  </div>
   <div class="mb-10">
-    <ul class="flex items-center justify-center gap-x-2 md:gap-x-3 h-8 text-sm">
-      <li>
-        <a href="#" class="flex items-center justify-center transition shadow-lg px-3 h-8 ms-0 text-gray-500 bg-white rounded-lg hover:bg-gray-100">
-          <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-          </svg>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="flex items-center justify-center transition shadow-lg px-3 h-8 text-red-600  bg-red-200 rounded-lg hover:bg-gray-100">1</a>
-      </li>
-      <li>
-        <a href="#" class="flex items-center justify-center transition shadow-lg px-3 h-8 text-gray-500 bg-white rounded-lg hover:bg-gray-100">2</a>
-      </li>
-      <li>
-        <a href="#" class="flex items-center justify-center transition shadow-lg px-3 h-8 rounded-lg text-gray-500 bg-white hover:bg-gray-100">3</a>
-      </li>
-      <li>
-        <a href="#" class="flex items-center justify-center transition shadow-lg px-3 h-8 text-gray-500 bg-white rounded-lg hover:bg-gray-100">...</a>
-      </li>
-       <li>
-        <a href="#" class="flex items-center justify-center transition shadow-lg px-3 h-8 text-gray-500 bg-white rounded-lg hover:bg-gray-100">8</a>
-      </li>
-      <li>
-        <a href="#" class="flex items-center justify-center transition shadow-lg px-3 h-8 text-gray-500 bg-white rounded-lg hover:bg-gray-100">
-          <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-          </svg>
-        </a>
-      </li>
-    </ul>
+
   </div>
   <!-- FOOTER -->
   {% include 'includes/footer.html' %}
@@ -141,5 +120,37 @@
 <script src="{% static 'js/navbar.js' %}"></script>
 <!-- SHOW MODAL SEARCH -->
 <script src="{% static 'js/searchBox.js' %}"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const deleteForms = document.querySelectorAll('.delete-favorite-form');
+    deleteForms.forEach(function(form) {
+      form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        Swal.fire({
+          title: 'حذف از علاقه‌مندی‌ها؟',
+          text: 'آیا مطمئن هستید که می‌خواهید این محصول را از علاقه‌مندی‌ها حذف کنید؟',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'بله، حذف کن',
+          cancelButtonText: 'انصراف',
+          reverseButtons: true,
+          focusCancel: true,
+          buttonsStyling: false,
+          customClass: {
+            popup: 'rounded-3xl',
+            title: 'text-lg font-bold',
+            htmlContainer: 'text-sm text-gray-600',
+            confirmButton: 'bg-red-500 hover:bg-red-600 text-white rounded-xl px-5 py-2 mx-1 transition',
+            cancelButton: 'bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl px-5 py-2 mx-1 transition'
+          }
+        }).then((result) => {
+          if (result.isConfirmed) {
+            form.submit();
+          }
+        });
+      });
+    });
+  });
+</script>
 
 </html>

@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
-from django.views.generic import ListView, View,DetailView
+from django.views.generic import ListView, View,DetailView,DeleteView
 from .forms import AddressAdd, Change_Password, Change_Profile
 from .models import *
 from django.db.models import Q
@@ -237,4 +237,13 @@ class CustomerOrderDetailView(LoginRequiredMixin,DetailView):
         return OrderModel.objects.filter(user=self.request.user)
     
     
+class FavoriteDeleteView(LoginRequiredMixin, DeleteView):
     
+    model = Favorites
+    http_method_names = ["post"]
+    success_url = reverse_lazy("Profile:FavoriteViews")
+    def get_queryset(self):return Favorites.objects.filter( user=self.request.user )
+
+    def delete(self, request, *args, **kwargs):
+        messages.success( request, "محصول با موفقیت از علاقه‌مندی‌ها حذف شد.")
+        return super().delete(request, *args, **kwargs)

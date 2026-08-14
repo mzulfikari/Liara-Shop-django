@@ -8,6 +8,11 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.core.exceptions import FieldError
 from django.utils.encoding import uri_to_iri
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
+from django.views import View
+from Dashbord .models import Favorites
+
 
 class ProductDetails(DetailView):
     template_name = "Product/single-product.html"
@@ -96,3 +101,39 @@ class Product_list(ListView):
         context["categories"] = Category.objects.all()
         context["selected_categories"] = self.request.GET.getlist("category_id")
         return context
+
+
+
+class ToggleFavoriteView(LoginRequiredMixin, View):
+
+    def post(self, request, product_id):
+
+        product = get_object_or_404(
+            Products,
+            id=product_id
+        )
+
+        favorite = Favorites.objects.filter(
+            user=request.user,
+            product=product
+        ).first()
+
+        if favorite:
+            favorite.delete()
+
+            return JsonResponse({
+                "success": True,
+                "is_favorite": False,
+                "message": "محصول از علاقه‌مندی‌ها حذف شد."
+            })
+
+        Favorites.objects.create(
+            user=request.user,
+            product=product
+        )
+
+        return JsonResponse({
+            "success": True,
+            "is_favorite": True,
+            "message": "محصول به علاقه‌مندی‌ها اضافه شد."
+        })

@@ -77,11 +77,11 @@
       <!-- TOP SLIDER -->
       <div class="flex justify-between px-5 md:px-10 items-center">
         <div class="border-b-2 border-red-500 pb-1">پرتخفیف ترین ها</div>
-        <a href="./search.html">
+        {% comment %} <a href="./search.html">
           <div class="transition px-4 py-2 rounded-xl flex justify-center items-center text-red-500 hover:text-red-600">
             دیدن همه<img class="w-4 mr-2" src="{% static 'image/arrow-left.png' %}" alt="">
           </div>
-        </a>
+        </a> {% endcomment %}
       </div>
       <!-- SLIDER -->
       <div class="containerPSlider swiper relative">
@@ -123,11 +123,11 @@
     <div class="bg-white rounded-2xl py-6 shadow-xl my-10">
       <div class="flex justify-between px-5 pb-5 md:px-10 items-center">
         <div class="border-b-2 border-red-500 pb-1">دسته بندی ها</div>
-        <a href="{% url 'Product:Product_list' %}">
+        {% comment %} <a href="{% url 'Product:Product_list' %}">
           <div class="transition px-4 py-2 rounded-xl flex justify-center items-center text-red-500 hover:text-red-600">
             دیدن همه<img class="w-4 mr-2" src="{% static 'image/arrow-left.png' %}" alt="">
           </div>
-        </a>
+        </a> {% endcomment %}
       </div>
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-x-4 gap-y-6 md:gap-x-8 2xl:gap-x-10 px-3 md:px-8 lg:px-28">
         {% for Category in Categories %}
@@ -151,11 +151,11 @@
     <div class="bg-white rounded-2xl pt-10 shadow-xl my-10">
       <div class="flex justify-between px-5 md:px-10 items-center">
         <div class="border-b-2 border-red-500 pb-1">کانتور و هایلاتر</div>
-        <a href="{% url 'Product:Product_view' %}?category_id={{ contour_category.id }}">
+        {% comment %} <a href="{% url 'Product:Product_view' %}?category_id={{ contour_category.id }}">
           <div class="transition px-4 py-2 rounded-xl flex justify-center items-center text-red-500 hover:text-red-600">
             دیدن همه<img class="w-4 mr-2" src="{% static 'image/arrow-left.png' %}" alt="">
           </div>
-        </a>
+        </a> {% endcomment %}
       </div>
       <div class="containerPSlider swiper relative">
         <div class="slide-container1 px-2">
@@ -219,11 +219,11 @@
     <div class="bg-white rounded-2xl pt-10 shadow-xl my-10">
       <div class="flex justify-between px-5 md:px-10 items-center">
         <div class="border-b-2 border-red-500 pb-1">محصولات ابرو</div>
-        <a href="./search.html">
+        {% comment %} <a href="./search.html">
           <div class="transition px-4 py-2 rounded-xl flex justify-center items-center text-red-500 hover:text-red-600">
             دیدن همه<img class="w-4 mr-2" src="{% static 'image/arrow-left.png' %}" alt="">
           </div>
-        </a>
+        </a> {% endcomment %}
       </div>
       <div class="containerPSlider swiper relative">
         <div class="slide-container1 px-2">
