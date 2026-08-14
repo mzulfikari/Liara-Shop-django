@@ -72,16 +72,16 @@ class Product_View(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["discount_products"] = Products.objects.filter(
-            status=ProductStatusType.publish.value, Discounts=True
-        )
+        context["discount_products"] = Products.objects.filter(status=ProductStatusType.publish.value, Discounts=True)
+        context["contour_products"] = Products.objects.filter(
+        status=ProductStatusType.publish.value,category__title="کانتور و هایلاتر")[:8]
+        context["eyebrow_products"] = Products.objects.filter(status=ProductStatusType.publish.value,category__title="ابرو")[:8]
         return context
-
-
+    
 class Product_list(ListView):
     model = Products
     template_name = "Product/list_view.html"
-    paginate_by = 2
+    paginate_by = 10
 
     def get_queryset(self):
         queryset = Products.objects.filter(status=ProductStatusType.publish.value)

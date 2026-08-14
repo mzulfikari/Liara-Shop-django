@@ -235,12 +235,14 @@
             </div>
           </div>
         </li>
+        {% if request.user.is_authenticated %}
         <li class="block relative">
           <a href="{% url 'Profile:order-list' %}"
             class="flex items-center h-10 text-sm leading-10 px-4 mx-1 transition text-gray-700 hover:text-red-500">
             <span class="border-b-2 border-transparent hover:border-red-600 transition-colors">سفارشات</span>
           </a>
         </li>
+         {% endif %}
         <li class="block relative">
           <a href="{% url 'Core:About_me' %}"
             class="flex items-center h-10 text-sm leading-10 px-4 mx-1 transition text-gray-700 hover:text-red-500">
@@ -338,12 +340,14 @@
             </div>
           </div>
         </li>
+        {% if request.user.is_authenticated %}
         <li class="flex">
           <a href="{% url 'Profile:order-list' %}"
             class="flex justify-between items-center h-10 text-sm opacity-90 leading-10 px-3 w-full no-underline hover:no-underline duration-100 mx-1 transition rounded-xl hover:bg-red-100">
             <span>سفارشات</span>
           </a>
         </li>
+         {% endif %}
         <li class="flex">
           <a href="{% url 'Core:About_me' %}"
             class="flex justify-between items-center h-10 text-sm opacity-90 leading-10 px-3 w-full no-underline hover:no-underline duration-100 mx-1 transition rounded-xl hover:bg-red-100">

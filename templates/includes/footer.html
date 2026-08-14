@@ -45,10 +45,14 @@
           <ul class="grid gap-y-2">
             <li><a href="{% url 'Product:Product_view' %}"
                 class="mb-2 text-sm hover:text-red-600 transition opacity-60 hover:opacity-100">خانه</a></li>
+            <li><a href="{% url 'Product:Product_view' %}"
+                class="mb-2 text-sm hover:text-red-600 transition opacity-60 hover:opacity-100">تماس با ما</a></li>
             <li><a href="{% url 'Core:About_me' %}"
                 class="mb-12 text-sm hover:text-red-600 transition opacity-60 hover:opacity-100">درباره ما</a></li>
-            <li><a href=""
+                {% if request.user.is_authenticated %}
+            <li><a href="{% url 'Profile:order-list' %}"
                 class="mb-2 text-sm hover:text-red-600 transition opacity-60 hover:opacity-100">پیگیری سفارش</a></li>
+            {% endif %}
           </ul>
         </div>
       </div>

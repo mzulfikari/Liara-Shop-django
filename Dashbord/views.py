@@ -197,7 +197,7 @@ class DeleteCommentView(View):
 class FavoriteViews(ListView):
 
     model = Favorites
-    template_name = "profile\profile-favorites.html"
+    template_name = "profile/profile-favorites.html"
     context_object_name = "favorites"
     paginate_by = 4
 
@@ -208,7 +208,6 @@ class FavoriteViews(ListView):
 class CustomerOrderListView(LoginRequiredMixin,ListView,):
     
     template_name = "profile/profile-order.html"
-
     paginate_by = 3
     
     def get_paginate_by(self,queryset):

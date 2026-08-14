@@ -303,7 +303,7 @@
                   </div>
                   <span class="flex justify-center items-center opacity-90">
                     {% if  products.stock_count %}
-                    <button onclick="addToCart('{{object.id}}')"
+                    <button  type="button" onclick="addToCart('{{object.id}}')"
                       class="px-7 py-2 text-center text-white bg-red-500 align-middle border-0 rounded-lg shadow-md text-sm">افزودن
                       به سبد خرید</button>
                   </span>
@@ -558,6 +558,7 @@
 <script>
   function addToCart(product_id) {
     console.log(product_id)
+
     $.ajax({
       url: "{% url 'Cart:session-add-product' %}",
       method: 'POST',
@@ -565,11 +566,35 @@
         product_id: product_id,
         csrfmiddlewaretoken: '{{ csrf_token }}'
       },
+
       success: function(response) {
+
+        // بروزرسانی تعداد سبد خرید
         $("#total-cart-item-count").html(response.total_quantity)
-        console.log(response);
+
+        // پیام موفقیت
+        Swal.fire({
+        icon: 'success',
+        title: 'محصول اضافه شد',
+        text: 'محصول با موفقیت به سبد خرید اضافه شد.',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        position: 'center'
+      });
+
       },
+
       error: function(jqXHR, textStatus, errorThrown) {
+
+        Swal.fire({
+          icon: 'error',
+          title: 'خطا',
+          text: 'افزودن محصول به سبد خرید انجام نشد.',
+          confirmButtonText: 'باشه',
+          confirmButtonColor: '#ef4444'
+        });
+
         console.log(errorThrown)
       }
     });

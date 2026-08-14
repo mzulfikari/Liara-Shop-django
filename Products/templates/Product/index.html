@@ -150,8 +150,8 @@
     <!-- PRODUCT SLIDER 2 -->
     <div class="bg-white rounded-2xl pt-10 shadow-xl my-10">
       <div class="flex justify-between px-5 md:px-10 items-center">
-        <div class="border-b-2 border-red-500 pb-1">محصولات ابرو</div>
-        <a href="./search.html">
+        <div class="border-b-2 border-red-500 pb-1">کانتور و هایلاتر</div>
+        <a href="{% url 'Product:Product_view' %}?category_id={{ contour_category.id }}">
           <div class="transition px-4 py-2 rounded-xl flex justify-center items-center text-red-500 hover:text-red-600">
             دیدن همه<img class="w-4 mr-2" src="{% static 'image/arrow-left.png' %}" alt="">
           </div>
@@ -160,24 +160,28 @@
       <div class="containerPSlider swiper relative">
         <div class="slide-container1 px-2">
           <div class="card-wrapper swiper-wrapper py-4">
-            <a href="./single-product.html" class="card swiper-slide my-2 p-2 md:p-3">
+            {% for product in contour_products %}
+          <a href="{% url 'Product:Product_details' product.slug %}" class="card swiper-slide my-2 p-2 md:p-3">
               <div class="image-box mb-6">
-                <div>
-                  <img class="hover:scale-105 transition rounded-3xl w-full mx-auto" src="{% static 'image/productSlider/7.jpg' %}" alt="" />
-                </div>
+                  <div>
+                    <img class="hover:scale-105 transition rounded-3xl w-full mx-auto" src="{{ product.image.url }}" alt="{{ product.title }}" />
+                  </div>
               </div>
               <div class="space-y-3 text-center">
-                <span class="text-sm opacity-80 mb-2 h-8 md:h-10 block">لپ تاپ مدل ایسوس</span>
-                <div class="flex justify-center text-xs opacity-75">
-                  <div class="line-through">1,350,000</div>
-                  <div class="line-through mr-1">تومان</div>
-                </div>
-                <div class="flex justify-center mt-1 mb-2 text-sm font-bold text-red-600">
-                  <div>1,100,000</div>
-                  <div class="mr-1">تومان</div>
-                </div>
+                  <span class="text-sm opacity-80 mb-2 h-8 md:h-10 block">
+                      {{ product.title }}
+                  </span>
+                  <div class="flex justify-center mt-1 mb-2 text-sm font-bold text-red-600">
+                      <div>{{ product.price }}</div>
+                      <div class="mr-1">تومان</div>
+                  </div>
               </div>
-            </a>
+          </a>
+          {% empty %}
+          <div class="w-full text-center py-10">
+              محصولی در این دسته‌بندی وجود ندارد.
+          </div>
+          {% endfor %}
           </div>
         </div>
         <div class="swiper-button-next swiper-navBtn"></div>
@@ -214,7 +218,7 @@
     <!-- PRODUCT SLIDER 3 -->
     <div class="bg-white rounded-2xl pt-10 shadow-xl my-10">
       <div class="flex justify-between px-5 md:px-10 items-center">
-        <div class="border-b-2 border-red-500 pb-1">کانتور و هایلاتر</div>
+        <div class="border-b-2 border-red-500 pb-1">محصولات ابرو</div>
         <a href="./search.html">
           <div class="transition px-4 py-2 rounded-xl flex justify-center items-center text-red-500 hover:text-red-600">
             دیدن همه<img class="w-4 mr-2" src="{% static 'image/arrow-left.png' %}" alt="">
@@ -224,24 +228,28 @@
       <div class="containerPSlider swiper relative">
         <div class="slide-container1 px-2">
           <div class="card-wrapper swiper-wrapper py-4">
-            <a href="./single-product.html" class="card swiper-slide my-2 p-2 md:p-3">
+             {% for product in eyebrow_products %}
+          <a href="{% url 'Product:Product_details' product.slug %}" class="card swiper-slide my-2 p-2 md:p-3">
               <div class="image-box mb-6">
-                <div>
-                  <img class="hover:scale-105 transition rounded-3xl w-full mx-auto" src="{% static 'image/productSlider/13.jpg' %}" alt="" />
-                </div>
+                  <div>
+                    <img class="hover:scale-105 transition rounded-3xl w-full mx-auto" src="{{ product.image.url }}" alt="{{ product.title }}" />
+                  </div>
               </div>
               <div class="space-y-3 text-center">
-                <span class="text-sm opacity-80 mb-2 h-8 md:h-10 block">کیسه خواب</span>
-                <div class="flex justify-center text-xs opacity-75">
-                  <div class="line-through">1,350,000</div>
-                  <div class="line-through mr-1">تومان</div>
-                </div>
-                <div class="flex justify-center mt-1 mb-2 text-sm font-bold text-red-600">
-                  <div>1,100,000</div>
-                  <div class="mr-1">تومان</div>
-                </div>
+                  <span class="text-sm opacity-80 mb-2 h-8 md:h-10 block">
+                      {{ product.title }}
+                  </span>
+                  <div class="flex justify-center mt-1 mb-2 text-sm font-bold text-red-600">
+                      <div>{{ product.price }}</div>
+                      <div class="mr-1">تومان</div>
+                  </div>
               </div>
-            </a>
+          </a>
+          {% empty %}
+          <div class="w-full text-center py-10">
+              محصولی در این دسته‌بندی وجود ندارد.
+          </div>
+          {% endfor %}
           </div>
         </div>
         <div class="swiper-button-next swiper-navBtn"></div>
